@@ -19,31 +19,31 @@ public class ResultVo<T> {
     private T data;
 
     //直接返回成功状态码
-    public static ResultVo success(){
-        ResultVo resultVo=new ResultVo();
+    public static ResultVo success() {
+        ResultVo resultVo = new ResultVo();
         resultVo.setStatus_code(1);
         return resultVo;
     }
 
     //返回成功状态码的同时返回对象
-    public static <T>ResultVo success(T data){
-        ResultVo<T> resultVo=new ResultVo<>();
+    public static <T> ResultVo success(T data) {
+        ResultVo<T> resultVo = new ResultVo<>();
         resultVo.setStatus_code(1);
         resultVo.setData(data);
         return resultVo;
     }
 
     //直接返回错误状态码和错误信息
-    public static ResultVo fail(ErrorMsg errorMsg){
-        ResultVo resultVo=new ResultVo();
+    public static ResultVo fail(ErrorMsg errorMsg) {
+        ResultVo resultVo = new ResultVo();
         resultVo.setStatus_code(0);
         resultVo.setMsg(errorMsg.getMsg());
         return resultVo;
     }
 
     //返回错误状态码和错误信息的同时返回错误对象
-    public static <T>ResultVo fail(ErrorMsg errorMsg,T data){
-        ResultVo<T> resultVo=new ResultVo<>();
+    public static <T> ResultVo fail(ErrorMsg errorMsg, T data) {
+        ResultVo<T> resultVo = new ResultVo<>();
         resultVo.setStatus_code(0);
         resultVo.setMsg(errorMsg.getMsg());
         resultVo.setData(data);

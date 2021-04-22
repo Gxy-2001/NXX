@@ -31,7 +31,9 @@ public enum ErrorMsg {
     FORM_NUMBER_ERROR("表单id错误"),
     REPEAT_COMMIT_ERROR("请勿重复提交"),
     COMMIT_FAIL_ERROR("提交失败"),
-    FAVORITE_EXIT("收藏已存在");
+    FAVORITE_EXIT("收藏已存在"),
+    FORBIDDEN("无权限"),
+    UNAUTHORIZE("未授权");
 
     private String msg;
 
