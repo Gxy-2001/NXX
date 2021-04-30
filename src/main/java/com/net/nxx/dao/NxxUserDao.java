@@ -1,6 +1,6 @@
 package com.net.nxx.dao;
 
-import com.net.nxx.model.NxxUserModel;
+import com.net.nxx.model.NxxUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,25 +10,25 @@ import java.util.List;
 public interface NxxUserDao {
     int deleteByPrimaryKey(Long id);
 
-    int insert(NxxUserModel record);
+    int insert(NxxUser record);
 
-    int insertSelective(NxxUserModel record);
+    int insertSelective(NxxUser record);
 
-    NxxUserModel selectByPrimaryKey(Long id);
+    NxxUser selectByPrimaryKey(Long id);
 
-    int updateByPrimaryKeySelective(NxxUserModel record);
+    int updateByPrimaryKeySelective(NxxUser record);
 
-    int updateByPrimaryKey(NxxUserModel record);
+    int updateByPrimaryKey(NxxUser record);
 
-    NxxUserModel userLogin(@Param("accountNumber") String accountNumber, @Param("userPassword") String userPassword);
+    NxxUser userLogin(@Param("accountNumber") String accountNumber, @Param("userPassword") String userPassword);
 
-    List<NxxUserModel> getUserList();
+    List<NxxUser> getUserList();
 
-    List<NxxUserModel> findUserByList(List<Long> idList);
+    List<NxxUser> findUserByList(List<Long> idList);
 
-    List<NxxUserModel> getNormalUser(int begin, int nums);
+    List<NxxUser> getNormalUser(int begin, int nums);
 
-    List<NxxUserModel> getBanUser(int begin, int nums);
+    List<NxxUser> getBanUser(int begin, int nums);
 
     int countNormalUser();
 

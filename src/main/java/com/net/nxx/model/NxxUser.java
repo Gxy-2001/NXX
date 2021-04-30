@@ -8,11 +8,11 @@ import lombok.Data;
 
 /**
  * nxx_user
- * @author 
+ * @author
  */
 @ApiModel(value="com.net.nxx.model.NxxUserModel")
 @Data
-public class NxxUserModel implements Serializable {
+public class NxxUser implements Serializable {
     /**
      * 自增主键
      */

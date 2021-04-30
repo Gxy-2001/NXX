@@ -1,7 +1,7 @@
 package com.net.nxx.service.impl;
 
 import com.net.nxx.dao.NxxUserDao;
-import com.net.nxx.model.NxxUserModel;
+import com.net.nxx.model.NxxUser;
 import com.net.nxx.service.UserService;
 import com.net.nxx.vo.PageVo;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public NxxUserModel getUser(Long id) {
+    public NxxUser getUser(Long id) {
         return userDao.selectByPrimaryKey(id);
     }
 
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public NxxUserModel userLogin(String accountNumber, String userPassword) {
+    public NxxUser userLogin(String accountNumber, String userPassword) {
         return userDao.userLogin(accountNumber, userPassword);
     }
 
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public boolean userSignIn(NxxUserModel userModel) {
+    public boolean userSignIn(NxxUser userModel) {
         return userDao.insert(userModel) == 1;
     }
 
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public boolean updateUserInfo(NxxUserModel userModel) {
+    public boolean updateUserInfo(NxxUser userModel) {
         return userDao.updateByPrimaryKeySelective(userModel) == 1;
     }
 
@@ -79,8 +79,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageVo<NxxUserModel> getUserByStatus(int status, int page, int nums) {
-        List<NxxUserModel> list;
+    public PageVo<NxxUser> getUserByStatus(int status, int page, int nums) {
+        List<NxxUser> list;
         int count = 0;
         if (status == 0) {
             count = userDao.countNormalUser();

@@ -56,13 +56,11 @@ insert  into `nxx_user`(`id`,`account_number`,`user_password`,`nickname`,`avatar
 
 
 
-
-
 /*Table structure for table `sh_address` */
 
-DROP TABLE IF EXISTS `sh_address`;
+DROP TABLE IF EXISTS `nxx_address`;
 
-CREATE TABLE `sh_address` (
+CREATE TABLE `nxx_address` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
   `consignee_name` varchar(32) NOT NULL COMMENT '收货人姓名',
   `consignee_phone` varchar(16) NOT NULL COMMENT '收货人手机号',
@@ -78,7 +76,10 @@ CREATE TABLE `sh_address` (
 
 /*Data for the table `sh_address` */
 
-insert  into `sh_address`(`id`,`consignee_name`,`consignee_phone`,`province_name`,`city_name`,`region_name`,`detail_address`,`default_flag`,`user_id`) values (20,'shiny','17322611234','广东省','佛山市','禅城区','江湾一路1号',0,1),(21,'hhhh','17322610001','广东省','佛山市','禅城区','江湾一路2号',0,1),(22,'myl','17322611234','湖北省','宜昌市','点军区','啦啦啦啦啦啦啦啦啦啦啦啦啦',0,1),(23,'lll','17322612356','山东省','淄博市','博山区','fdsafsdfsdfsd',1,1);
+insert  into `nxx_address`(`id`,`consignee_name`,`consignee_phone`,`province_name`,`city_name`,`region_name`,`detail_address`,`default_flag`,`user_id`) values (20,'Gxy','123456789','江苏省','南京市','栖霞区','仙林大街163号',0,1);
+
+
+
 
 
 
