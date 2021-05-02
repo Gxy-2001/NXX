@@ -19,7 +19,7 @@ mysql8以上
 
 运行方法：
 
-MySql先建nxx表，sql文件在文件夹里，改配置文件的数据库密码
+sql文件在文件夹里，改配置文件的数据库密码
 
 maven方面clean然后compile
 
