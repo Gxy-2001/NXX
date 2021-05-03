@@ -51,8 +51,8 @@ CREATE TABLE `nxx_user`
 /*Data for the table `nxx_user` */
 
 insert into `nxx_user`(`id`, `account_number`, `user_password`, `nickname`, `avatar`, `sign_in_time`, `user_status`)
-values (1, '111111', '123456', 'Gxy', 'touxiang.png', now(), 0),
-       (2, '222222', '123456', 'Yxg', 'touxiang.png', now(), 0);
+values (1, '111111', '123456', 'Gxy', 'https://cdn.jsdelivr.net/gh/Gxy-2001/img/seec2/20210503143842.jpg', now(), 0),
+       (2, '222222', '123456', 'Yxg', 'https://cdn.jsdelivr.net/gh/Gxy-2001/img/seec2/20210503143842.jpg', now(), 0);
 
 
 /*Table structure for table `nxx_address` */
@@ -78,7 +78,7 @@ CREATE TABLE `nxx_address`
 
 insert into `nxx_address`(`id`, `consignee_name`, `consignee_phone`, `province_name`, `city_name`, `region_name`,
                           `detail_address`, `default_flag`, `user_id`)
-values (20, 'Gxy', '123456789', '江苏省', '南京市', '栖霞区', '仙林大街163号', 0, 1);
+values (1, 'Gxy', '123456789', '江苏省', '南京市', '栖霞区', '仙林大街163号', 0, 1);
 
 
 /*Table structure for table `nxx_favorite` */
