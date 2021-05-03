@@ -24,3 +24,6 @@ sql文件在文件夹里，改配置文件的数据库密码
 maven方面clean然后compile
 
 http://localhost:8090/swagger-ui.html  或者  http://localhost:8090/doc.html 为调试界面
+
+
+5.3: 下一步我要集成ES搜索，这是非常难但是很值得学的
