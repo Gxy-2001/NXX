@@ -51,7 +51,8 @@ CREATE TABLE `nxx_user`
 /*Data for the table `nxx_user` */
 
 insert into `nxx_user`(`id`, `account_number`, `user_password`, `nickname`, `avatar`, `sign_in_time`, `user_status`)
-values (1, '111111', '123456', 'Gxy', 'touxiang.png', now(), 0);
+values (1, '111111', '123456', 'Gxy', 'touxiang.png', now(), 0),
+       (2, '222222', '123456', 'Yxg', 'touxiang.png', now(), 0);
 
 
 /*Table structure for table `nxx_address` */
@@ -121,11 +122,40 @@ CREATE TABLE `nxx_idle_item`
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 insert into `nxx_idle_item`(`id`, `idle_name`, `idle_details`, `picture_list`, `idle_price`, `idle_place`, `idle_label`,
-                           `release_time`, `idle_status`, `user_id`)
+                            `release_time`, `idle_status`, `user_id`)
 values (1, '商品1', '在这改商品介绍',
         '[\"https://gxy-seec2.oss-cn-beijing.aliyuncs.com/seec2/20210502170935.jpg\",\"https://gxy-seec2.oss-cn-beijing.aliyuncs.com/seec2/20210502171024.jpg\"]',
         '1000.00', '南京市', 1, '2020-12-26 23:01:01', 1, 1)
 
+
+/*Table structure for table `nxx_message` */
+
+DROP TABLE IF EXISTS `nxx_message`;
+
+CREATE TABLE `nxx_message`
+(
+    `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+    `user_id`     bigint(20) NOT NULL COMMENT '用户主键id',
+    `idle_id`     bigint(20) NOT NULL COMMENT '闲置主键id',
+    `content`     varchar(256) NOT NULL COMMENT '留言内容',
+    `create_time` datetime     NOT NULL COMMENT '留言时间',
+    `to_user`     bigint(20) NOT NULL COMMENT '所回复的用户',
+    `to_message`  bigint(20) DEFAULT NULL COMMENT '所回复的留言',
+    PRIMARY KEY (`id`),
+    KEY           `user_id_index` (`user_id`),
+    KEY           `idle_id_index` (`idle_id`),
+    KEY           `to_user_index` (`to_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*Data for the table `nxx_message` */
+
+insert into `nxx_message`(`id`, `user_id`, `idle_id`, `content`, `create_time`, `to_user`, `to_message`)
+values (1, 1, 1, '哈哈哈哈哈哈哈哈哈哈哈', '2021-05-03 12:34:16', 2, NULL),
+       (2, 1, 1, '啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦\n啦啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊', '2021-05-03 13:50:42', 2, 1),
+       (3, 1, 1, '啊啊啊啊啊啊\n阿凡达发', '2021-05-03 13:53:53', 2, 1),
+       (4, 2, 1, 'gggggggg', '2021-05-03 14:00:39', 1, NULL),
+       (5, 2, 1, 'aaaaaaa', '2021-05-03 14:01:01', 1, NULL),
+       (6, 2, 1, '11111111111111111111\n22222222\n3\n25\n56', '2021-05-03 14:02:54', 1, NULL);
 
 
 
