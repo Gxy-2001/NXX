@@ -6,7 +6,7 @@ springboot 2.4.5最新版
 
 mysql8以上
 
-
+因为springboot是2.4.x，所以Elasticsearch要7.9.3，Spring Data Elasticsearch要4.1.x
 
 4.21:整合Swagger-UI
 
