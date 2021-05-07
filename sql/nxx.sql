@@ -157,6 +157,29 @@ values (1, 1, 1, '哈哈哈哈哈哈哈哈哈哈哈', '2021-05-03 12:34:16', 2, 
        (5, 2, 1, 'aaaaaaa', '2021-05-03 14:01:01', 1, NULL),
        (6, 2, 1, '11111111111111111111\n22222222\n3\n25\n56', '2021-05-03 14:02:54', 1, NULL);
 
+/*Table structure for table `sh_order_address` */
+
+DROP TABLE IF EXISTS `nxx_order_address`;
+
+CREATE TABLE `nxx_order_address`
+(
+    `id`              bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    `order_id`        bigint(20) NOT NULL COMMENT '订单id',
+    `consignee_name`  varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci  NOT NULL COMMENT '收货人',
+    `consignee_phone` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci  NOT NULL COMMENT '电话',
+    `detail_address`  varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '收货地址',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `orderId` (`order_id`),
+    KEY               `order_id_index` (`order_id`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 42
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
+
+/*Data for the table `sh_order_address` */
+
+insert into `nxx_order_address`(`id`, `order_id`, `consignee_name`, `consignee_phone`, `detail_address`)
+values (1, 1, 'Gxy', '111111', '南京大学');
 
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

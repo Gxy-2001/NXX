@@ -81,9 +81,10 @@ public class ElasticsearchTest {
     //测试修改文档信息
     @Test
     public void updateDocument() throws IOException {
-        UpdateRequest java_index = new UpdateRequest("item", "30");
+        UpdateRequest java_index = new UpdateRequest("item", "39");
         NxxIdleItem item = new NxxIdleItem(30L);
-        item.setUserId(100L);
+        String s = "假装这里有很长很长很长的商品介绍，为了测试所以我需要很长很长的商品介绍，哈哈哈，介绍在这";
+        item.setIdleDetails(s);
         java_index.doc(JSON.toJSONString(item), XContentType.JSON);
         UpdateResponse update = restHighLevelClient.update(java_index, RequestOptions.DEFAULT);
         System.out.println(update.status());  //查看更新状态
@@ -126,7 +127,7 @@ public class ElasticsearchTest {
         //构造搜索条件
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         //使用工具类构造搜索信息
-        MatchQueryBuilder query = QueryBuilders.matchQuery("user_id", "1");
+        MatchQueryBuilder query = QueryBuilders.matchQuery("idle_details", "测试 商品");
         searchSourceBuilder.query(query);
         java_index.source(searchSourceBuilder);
         //发送请求

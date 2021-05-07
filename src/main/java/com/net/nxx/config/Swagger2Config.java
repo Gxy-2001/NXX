@@ -40,7 +40,7 @@ public class Swagger2Config {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("SwaggerUI")
+                .title("Nxx - SwaggerUI")
                 .description("NXX")
                 .version("1.0")
                 .build();

@@ -41,6 +41,7 @@ public class NxxIdleItem implements Serializable {
     @ApiModelProperty(value = "详情")
     private String idleDetails;
 
+
     /**
      * 图集
      */
