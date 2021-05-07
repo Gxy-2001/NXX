@@ -4,6 +4,12 @@ server:
     uri-encoding: utf-8
 
 spring:
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+      rest:
+        uris: http://localhost:9200
   datasource:
     url: jdbc:mysql://localhost:3306/nxx?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
