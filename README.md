@@ -27,3 +27,5 @@ http://localhost:8090/swagger-ui.html  或者  http://localhost:8090/doc.html �
 
 
 5.3: 下一步我要集成ES搜索，这是非常难但是很值得学的
+
+5.7: 搜索功能完成大部分了，已经加进去了，测试能跑，并且我使用了插件能同步mysql到ES中，等商品功能上线我就跟
