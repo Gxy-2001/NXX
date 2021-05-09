@@ -15,11 +15,11 @@
     <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, order_number, user_id, idle_id, order_price, payment_status, payment_way, create_time, 
+    id, order_number, user_id, idle_id, order_price, payment_status, payment_way, create_time,
     payment_time, order_status, is_deleted
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from nxx_order
     where id = #{id,jdbcType=BIGINT}
@@ -37,12 +37,12 @@
     order by id desc limit #{begin}, #{nums}
   </select>
   <select id="countAllOrder" resultType="int">
-    select  count(*) from sh_order
+    select  count(*) from nxx_order
   </select>
   <select id="findOrderByIdleIdList" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from sh_order where idle_id in
+    from nxx_order where idle_id in
     <foreach collection="idleIdList" index="index" item="id" open="(" separator="," close=")">
       #{id}
     </foreach>
@@ -52,13 +52,13 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.net.nxx.model.NxxOrder" useGeneratedKeys="true">
-    insert into nxx_order (order_number, user_id, idle_id, 
-      order_price, payment_status, payment_way, 
-      create_time, payment_time, order_status, 
+    insert into nxx_order (order_number, user_id, idle_id,
+      order_price, payment_status, payment_way,
+      create_time, payment_time, order_status,
       is_deleted)
-    values (#{orderNumber,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{idleId,jdbcType=BIGINT}, 
-      #{orderPrice,jdbcType=DECIMAL}, #{paymentStatus,jdbcType=TINYINT}, #{paymentWay,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{paymentTime,jdbcType=TIMESTAMP}, #{orderStatus,jdbcType=TINYINT}, 
+    values (#{orderNumber,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{idleId,jdbcType=BIGINT},
+      #{orderPrice,jdbcType=DECIMAL}, #{paymentStatus,jdbcType=TINYINT}, #{paymentWay,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{paymentTime,jdbcType=TIMESTAMP}, #{orderStatus,jdbcType=TINYINT},
       #{isDeleted,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.net.nxx.model.NxxOrder" useGeneratedKeys="true">

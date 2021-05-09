@@ -1,9 +1,10 @@
 package com.net.nxx.dao;
 
 import com.net.nxx.model.NxxIdleItem;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-
+@Mapper
 public interface NxxIdleItemDao {
     int deleteByPrimaryKey(Long id);
 

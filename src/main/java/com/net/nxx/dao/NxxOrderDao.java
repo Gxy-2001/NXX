@@ -1,9 +1,10 @@
 package com.net.nxx.dao;
 
 import com.net.nxx.model.NxxOrder;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-
+@Mapper
 public interface NxxOrderDao {
     int deleteByPrimaryKey(Long id);
 

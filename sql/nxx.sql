@@ -101,7 +101,7 @@ insert into `nxx_favorite`(`id`, `create_time`, `user_id`, `idle_id`)
 values (1, '2021-05-27 00:28:00', 1, 1);
 
 
-/*Table structure for table `sh_idle_item` */
+/*Table structure for table `nxx_idle_item` */
 
 DROP TABLE IF EXISTS `nxx_idle_item`;
 
@@ -157,7 +157,7 @@ values (1, 1, 1, '哈哈哈哈哈哈哈哈哈哈哈', '2021-05-03 12:34:16', 2, 
        (5, 2, 1, 'aaaaaaa', '2021-05-03 14:01:01', 1, NULL),
        (6, 2, 1, '11111111111111111111\n22222222\n3\n25\n56', '2021-05-03 14:02:54', 1, NULL);
 
-/*Table structure for table `sh_order_address` */
+/*Table structure for table `nxx_order_address` */
 
 DROP TABLE IF EXISTS `nxx_order_address`;
 
@@ -176,7 +176,7 @@ CREATE TABLE `nxx_order_address`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
 
-/*Data for the table `sh_order_address` */
+/*Data for the table `nxx_order_address` */
 
 insert into `nxx_order_address`(`id`, `order_id`, `consignee_name`, `consignee_phone`, `detail_address`)
 values (1, 1, 'Gxy', '111111', '南京大学');
@@ -201,11 +201,11 @@ CREATE TABLE `nxx_idle_item` (
                                 KEY `user_id_index` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-/*Data for the table `sh_idle_item` */
+/*Data for the table `nxx_idle_item` */
 insert  into `nxx_idle_item`(`id`,`idle_name`,`idle_details`,`picture_list`,`idle_price`,`idle_place`,`idle_label`,`release_time`,`idle_status`,`user_id`)
 values(16,'苹果XSMAX ','国行256G，面容正常使用，95成新','','3500.00','南京市',1,'2021-05-08 23:01:01',1,1);
 
-/*Table structure for table `sh_order` */
+/*Table structure for table `nxx_order` */
 
 DROP TABLE IF EXISTS `nxx_order`;
 
@@ -224,7 +224,7 @@ CREATE TABLE `nxx_order` (
                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-/*Data for the table `sh_order` */
+/*Data for the table `nxx_order` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
