@@ -14,26 +14,71 @@
     <result column="user_id" jdbcType="BIGINT" property="userId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, idle_name, idle_details, picture_list, idle_price, idle_place, idle_label, release_time,
+    id, idle_name, idle_details, picture_list, idle_price, idle_place, idle_label, release_time, 
     idle_status, user_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from nxx_idle_item
     where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="getAllIdleItem" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from nxx_idle_item
+    where user_id = #{userId,jdbcType=BIGINT} and idle_status!=0 order by id desc
+  </select>
+  <select id="findIdleItem" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from nxx_idle_item
+    where (idle_name LIKE "%"#{findValue}"%" or idle_details LIKE "%"#{findValue}"%") and idle_status = 1 order by id desc limit #{begin}, #{nums}
+  </select>
+  <select id="countIdleItem"  resultType="int">
+    select COUNT(*) from nxx_idle_item
+    where (idle_name LIKE "%"#{idleName}"%" or idle_details LIKE "%"#{idleDetails}"%") and idle_status = 1
+  </select>
+  <select id="findIdleItemByLable" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from nxx_idle_item
+    where idle_label = #{idleLabel}  and idle_status = 1 order by id desc limit #{begin}, #{nums}
+  </select>
+  <select id="countIdleItemByLable"  resultType="int">
+    select COUNT(*) from nxx_idle_item
+    where idle_label = #{idleLabel} and idle_status = 1
+  </select>
+  <select id="getIdleItemByStatus" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from nxx_idle_item
+    where idle_status = #{status} order by id desc limit #{begin}, #{nums}
+  </select>
+  <select id="countIdleItemByStatus"  resultType="int">
+    select COUNT(*) from nxx_idle_item
+    where idle_status = #{status}
+  </select>
+  <select id="findIdleByList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from nxx_idle_item where id in
+    <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+    order by id desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from nxx_idle_item
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.net.nxx.model.NxxIdleItem" useGeneratedKeys="true">
-    insert into nxx_idle_item (idle_name, idle_details, picture_list,
-      idle_price, idle_place, idle_label,
+    insert into nxx_idle_item (idle_name, idle_details, picture_list, 
+      idle_price, idle_place, idle_label, 
       release_time, idle_status, user_id
       )
-    values (#{idleName,jdbcType=VARCHAR}, #{idleDetails,jdbcType=VARCHAR}, #{pictureList,jdbcType=VARCHAR},
-      #{idlePrice,jdbcType=DECIMAL}, #{idlePlace,jdbcType=VARCHAR}, #{idleLabel,jdbcType=INTEGER},
+    values (#{idleName,jdbcType=VARCHAR}, #{idleDetails,jdbcType=VARCHAR}, #{pictureList,jdbcType=VARCHAR}, 
+      #{idlePrice,jdbcType=DECIMAL}, #{idlePlace,jdbcType=VARCHAR}, #{idleLabel,jdbcType=INTEGER}, 
       #{releaseTime,jdbcType=TIMESTAMP}, #{idleStatus,jdbcType=TINYINT}, #{userId,jdbcType=BIGINT}
       )
   </insert>
@@ -144,13 +189,4 @@
       user_id = #{userId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="findIdleByList" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from nxx_idle_item where id in
-    <foreach collection="idList" index="index" item="id" open="(" separator="," close=")">
-      #{id}
-    </foreach>
-    order by id desc
-  </select>
 </mapper>

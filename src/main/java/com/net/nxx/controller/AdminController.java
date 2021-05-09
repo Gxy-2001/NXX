@@ -2,7 +2,12 @@ package com.net.nxx.controller;
 
 import com.net.nxx.common.exception.ErrorMsg;
 import com.net.nxx.model.NxxAdmin;
+import com.net.nxx.model.NxxIdleItem;
+import com.net.nxx.model.NxxUser;
 import com.net.nxx.service.AdminService;
+import com.net.nxx.service.IdleItemService;
+import com.net.nxx.service.UserService;
+import com.net.nxx.service.OrderService;
 import com.net.nxx.vo.ResultVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +30,15 @@ import javax.validation.constraints.NotNull;
 public class AdminController {
     @Resource
     private AdminService adminService;
+
+    @Resource
+    private IdleItemService idleItemService;
+
+    @Resource
+    private OrderService orderService;
+
+    @Resource
+    private UserService userService;
 
     @ApiOperation("登录")
     @GetMapping("login")
@@ -76,5 +90,106 @@ public class AdminController {
             return ResultVo.success();
         }
         return ResultVo.fail(ErrorMsg.PARAM_ERROR);
+    }
+
+    @ApiOperation("")
+    @GetMapping("idleList")
+    public ResultVo idleList(HttpSession session,
+                             @RequestParam("status") @NotNull @NotEmpty Integer status,
+                             @RequestParam(value = "page", required = false) Integer page,
+                             @RequestParam(value = "nums", required = false) Integer nums) {
+        if (session.getAttribute("admin") == null) {
+            return ResultVo.fail(ErrorMsg.COOKIE_ERROR);
+        }
+        int p = 1;
+        int n = 8;
+        if (null != page) {
+            p = page > 0 ? page : 1;
+        }
+        if (null != nums) {
+            n = nums > 0 ? nums : 8;
+        }
+        return ResultVo.success(idleItemService.adminGetIdleList(status, p, n));
+    }
+
+    @GetMapping("updateIdleStatus")
+    public ResultVo updateIdleStatus(HttpSession session,
+                                     @RequestParam("id") @NotNull @NotEmpty Long id,
+                                     @RequestParam("status") @NotNull @NotEmpty Integer status
+    ) {
+        if (session.getAttribute("admin") == null) {
+            return ResultVo.fail(ErrorMsg.COOKIE_ERROR);
+        }
+        NxxIdleItem idleItemModel = new NxxIdleItem();
+        idleItemModel.setId(id);
+        idleItemModel.setIdleStatus(status.byteValue());
+        if (idleItemService.updateIdleItem(idleItemModel)) {
+            return ResultVo.success();
+        }
+        return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
+    }
+
+    @GetMapping("orderList")
+    public ResultVo orderList(HttpSession session,
+                              @RequestParam(value = "page", required = false) Integer page,
+                              @RequestParam(value = "nums", required = false) Integer nums) {
+        if (session.getAttribute("admin") == null) {
+            return ResultVo.fail(ErrorMsg.COOKIE_ERROR);
+        }
+        int p = 1;
+        int n = 8;
+        if (null != page) {
+            p = page > 0 ? page : 1;
+        }
+        if (null != nums) {
+            n = nums > 0 ? nums : 8;
+        }
+        return ResultVo.success(orderService.getAllOrder(p, n));
+    }
+
+    @GetMapping("deleteOrder")
+    public ResultVo deleteOrder(HttpSession session,
+                                @RequestParam("id") @NotNull @NotEmpty Long id) {
+        if (session.getAttribute("admin") == null) {
+            return ResultVo.fail(ErrorMsg.COOKIE_ERROR);
+        }
+        if (orderService.deleteOrder(id)) {
+            return ResultVo.success();
+        }
+        return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
+    }
+
+    @GetMapping("userList")
+    public ResultVo userList(HttpSession session,
+                             @RequestParam(value = "page", required = false) Integer page,
+                             @RequestParam(value = "nums", required = false) Integer nums,
+                             @RequestParam("status") @NotNull @NotEmpty Integer status) {
+        if (session.getAttribute("admin") == null) {
+            return ResultVo.fail(ErrorMsg.COOKIE_ERROR);
+        }
+        int p = 1;
+        int n = 8;
+        if (null != page) {
+            p = page > 0 ? page : 1;
+        }
+        if (null != nums) {
+            n = nums > 0 ? nums : 8;
+        }
+        return ResultVo.success(userService.getUserByStatus(status, p, n));
+    }
+
+    @GetMapping("updateUserStatus")
+    public ResultVo updateUserStatus(HttpSession session,
+                                     @RequestParam("id") @NotNull @NotEmpty Long id,
+                                     @RequestParam("status") @NotNull @NotEmpty Integer status) {
+        if (session.getAttribute("admin") == null) {
+            return ResultVo.fail(ErrorMsg.COOKIE_ERROR);
+        }
+        NxxUser userModel = new NxxUser();
+        userModel.setId(id);
+        userModel.setUserStatus(status.byteValue());
+        if (userService.updateUserInfo(userModel))
+            return ResultVo.success();
+        return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
     }
 }
