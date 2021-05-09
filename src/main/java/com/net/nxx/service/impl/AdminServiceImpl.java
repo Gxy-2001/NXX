@@ -5,7 +5,6 @@ import com.net.nxx.model.NxxAdmin;
 import com.net.nxx.service.AdminService;
 import com.net.nxx.vo.PageVo;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

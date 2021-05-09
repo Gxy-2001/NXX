@@ -112,6 +112,7 @@ public class AdminController {
         return ResultVo.success(idleItemService.adminGetIdleList(status, p, n));
     }
 
+    @ApiOperation("修改商品状态")
     @GetMapping("updateIdleStatus")
     public ResultVo updateIdleStatus(HttpSession session,
                                      @RequestParam("id") @NotNull @NotEmpty Long id,
@@ -129,6 +130,7 @@ public class AdminController {
         return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
     }
 
+    @ApiOperation("获取订单列表")
     @GetMapping("orderList")
     public ResultVo orderList(HttpSession session,
                               @RequestParam(value = "page", required = false) Integer page,
@@ -147,6 +149,7 @@ public class AdminController {
         return ResultVo.success(orderService.getAllOrder(p, n));
     }
 
+    @ApiOperation("删除订单")
     @GetMapping("deleteOrder")
     public ResultVo deleteOrder(HttpSession session,
                                 @RequestParam("id") @NotNull @NotEmpty Long id) {
@@ -159,6 +162,7 @@ public class AdminController {
         return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
     }
 
+    @ApiOperation("获取用户列表")
     @GetMapping("userList")
     public ResultVo userList(HttpSession session,
                              @RequestParam(value = "page", required = false) Integer page,
@@ -178,6 +182,7 @@ public class AdminController {
         return ResultVo.success(userService.getUserByStatus(status, p, n));
     }
 
+    @ApiOperation("更新用户信息")
     @GetMapping("updateUserStatus")
     public ResultVo updateUserStatus(HttpSession session,
                                      @RequestParam("id") @NotNull @NotEmpty Long id,
