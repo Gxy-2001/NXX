@@ -33,11 +33,11 @@
     select
     <include refid="Base_Column_List" />
     from nxx_idle_item
-    where (idle_name LIKE "%"#{findValue}"%" or idle_details LIKE "%"#{findValue}"%") and idle_status = 1 order by id desc limit #{begin}, #{nums}
+    where (idle_name LIKE '%${findValue}%' or idle_details LIKE '%${findValue}%') and idle_status = 1 order by id desc limit #{begin}, #{nums}
   </select>
   <select id="countIdleItem"  resultType="int">
     select COUNT(*) from nxx_idle_item
-    where (idle_name LIKE "%"#{idleName}"%" or idle_details LIKE "%"#{idleDetails}"%") and idle_status = 1
+    where (idle_name LIKE '%${findValue}%' or idle_details LIKE '%${findValue}%') and idle_status = 1
   </select>
   <select id="findIdleItemByLable" resultMap="BaseResultMap">
     select
