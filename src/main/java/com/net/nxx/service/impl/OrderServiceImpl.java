@@ -42,35 +42,39 @@ public class OrderServiceImpl implements OrderService {
      * 1、重新上架闲置；2、修改订单状态；
      * 3、确保订单取消前不会影响用户的支付，支付前要判断订单状态并加读锁，取消订单时要判断订单状态为未支付才能取消；
      * 4、保证延期任务一定执行，即确保任务不会因为系统异常而消失）
+     *
      * @param orderModel
      * @return
      */
 
-    private static HashMap<Integer, ReentrantLock> lockMap=new HashMap<>();
+    private static HashMap<Integer, ReentrantLock> lockMap = new HashMap<>();
+
     static {
 //        ReentrantLock lock=new ReentrantLock(true);
-        for(int i=0;i<100;i++){
-            lockMap.put(i,new ReentrantLock(true));
+        for (int i = 0; i < 100; i++) {
+            lockMap.put(i, new ReentrantLock(true));
         }
     }
-    public boolean addOrder(NxxOrder orderModel){
-        NxxIdleItem idleItemModel=idleItemDao.selectByPrimaryKey(orderModel.getIdleId());
+
+    @Override
+    public boolean addOrder(NxxOrder orderModel) {
+        NxxIdleItem idleItemModel = idleItemDao.selectByPrimaryKey(orderModel.getIdleId());
         System.out.println(idleItemModel.getIdleStatus());
-        if(idleItemModel.getIdleStatus()!=1){
+        if (idleItemModel.getIdleStatus() != 1) {
             return false;
         }
-        NxxIdleItem idleItem=new NxxIdleItem();
+        NxxIdleItem idleItem = new NxxIdleItem();
         idleItem.setId(orderModel.getIdleId());
         idleItem.setUserId(idleItemModel.getUserId());
-        idleItem.setIdleStatus((byte)2);
+        idleItem.setIdleStatus((byte) 2);
 
-        int key= (int) (orderModel.getIdleId()%100);
-        ReentrantLock lock=lockMap.get(key);
+        int key = (int) (orderModel.getIdleId() % 100);
+        ReentrantLock lock = lockMap.get(key);
         boolean flag;
         try {
             lock.lock();
-            flag=addOrderHelp(idleItem,orderModel);
-        }finally {
+            flag = addOrderHelp(idleItem, orderModel);
+        } finally {
             lock.unlock();
         }
         return flag;
@@ -78,18 +82,18 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public boolean addOrderHelp(NxxIdleItem idleItem,NxxOrder orderModel){
-        NxxIdleItem idleItemModel=idleItemDao.selectByPrimaryKey(orderModel.getIdleId());
-        if(idleItemModel.getIdleStatus()!=1){
+    public boolean addOrderHelp(NxxIdleItem idleItem, NxxOrder orderModel) {
+        NxxIdleItem idleItemModel = idleItemDao.selectByPrimaryKey(orderModel.getIdleId());
+        if (idleItemModel.getIdleStatus() != 1) {
             return false;
         }
-        if(idleItemDao.updateByPrimaryKeySelective(idleItem)==1){
-            if(orderDao.insert(orderModel)==1){
+        if (idleItemDao.updateByPrimaryKeySelective(idleItem) == 1) {
+            if (orderDao.insert(orderModel) == 1) {
                 orderModel.setOrderStatus((byte) 4);
                 //半小时未支付则取消订单
-                OrderTaskHandler.addOrder(new OrderTask(orderModel,30*60));
+                OrderTaskHandler.addOrder(new OrderTask(orderModel, 30 * 60));
                 return true;
-            }else {
+            } else {
                 throw new RuntimeException();
             }
         }
@@ -98,11 +102,13 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * 获取订单信息，同时获取对应的闲置信息
+     *
      * @param id
      * @return
      */
-    public NxxOrder getOrder(Long id){
-        NxxOrder orderModel=orderDao.selectByPrimaryKey(id);
+    @Override
+    public NxxOrder getOrder(Long id) {
+        NxxOrder orderModel = orderDao.selectByPrimaryKey(id);
         orderModel.setIdleItem(idleItemDao.selectByPrimaryKey(orderModel.getIdleId()));
         return orderModel;
     }
@@ -110,45 +116,46 @@ public class OrderServiceImpl implements OrderService {
     /**
      * 更新订单状态，无验证，后期修改为定制的更新sql
      * 后期改为在支付时下架闲置
+     *
      * @param orderModel
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateOrder(NxxOrder orderModel){
+    public boolean updateOrder(NxxOrder orderModel) {
         //不可修改的信息
         orderModel.setOrderNumber(null);
         orderModel.setUserId(null);
         orderModel.setIdleId(null);
         orderModel.setCreateTime(null);
-        if(orderModel.getOrderStatus()==4){
+        if (orderModel.getOrderStatus() == 4) {
             //取消订单,需要优化，减少数据库查询次数
-            NxxOrder o=orderDao.selectByPrimaryKey(orderModel.getId());
-            if(o.getOrderStatus()!=0){
+            NxxOrder o = orderDao.selectByPrimaryKey(orderModel.getId());
+            if (o.getOrderStatus() != 0) {
                 return false;
             }
-            NxxIdleItem idleItemModel=idleItemDao.selectByPrimaryKey(o.getIdleId());
-            if(idleItemModel.getIdleStatus()==2){
-                NxxIdleItem idleItem=new NxxIdleItem();
+            NxxIdleItem idleItemModel = idleItemDao.selectByPrimaryKey(o.getIdleId());
+            if (idleItemModel.getIdleStatus() == 2) {
+                NxxIdleItem idleItem = new NxxIdleItem();
                 idleItem.setId(o.getIdleId());
                 idleItem.setUserId(idleItemModel.getUserId());
-                idleItem.setIdleStatus((byte)1);
-                if(orderDao.updateByPrimaryKeySelective(orderModel)==1){
-                    if(idleItemDao.updateByPrimaryKeySelective(idleItem)==1){
+                idleItem.setIdleStatus((byte) 1);
+                if (orderDao.updateByPrimaryKeySelective(orderModel) == 1) {
+                    if (idleItemDao.updateByPrimaryKeySelective(idleItem) == 1) {
                         return true;
-                    }else {
+                    } else {
                         throw new RuntimeException();
                     }
                 }
                 return false;
-            }else{
-                if(orderDao.updateByPrimaryKeySelective(orderModel)==1){
+            } else {
+                if (orderDao.updateByPrimaryKeySelective(orderModel) == 1) {
                     return true;
-                }else {
+                } else {
                     throw new RuntimeException();
                 }
             }
         }
-        return orderDao.updateByPrimaryKeySelective(orderModel)==1;
+        return orderDao.updateByPrimaryKeySelective(orderModel) == 1;
     }
 
     /**
@@ -156,22 +163,24 @@ public class OrderServiceImpl implements OrderService {
      * 同时查询出对应的闲置信息，
      * 未做分页
      * userId建索引
+     *
      * @param userId
      * @return
      */
-    public List<NxxOrder> getMyOrder(Long userId){
-        List<NxxOrder> list=orderDao.getMyOrder(userId);
-        if(list.size()>0){
-            List<Long> idleIdList=new ArrayList<>();
-            for(NxxOrder i:list){
+    @Override
+    public List<NxxOrder> getMyOrder(Long userId) {
+        List<NxxOrder> list = orderDao.getMyOrder(userId);
+        if (list.size() > 0) {
+            List<Long> idleIdList = new ArrayList<>();
+            for (NxxOrder i : list) {
                 idleIdList.add(i.getIdleId());
             }
-            List<NxxIdleItem> idleItemModelList=idleItemDao.findIdleByList(idleIdList);
-            Map<Long,NxxIdleItem> map=new HashMap<>();
-            for(NxxIdleItem idle:idleItemModelList){
-                map.put(idle.getId(),idle);
+            List<NxxIdleItem> idleItemModelList = idleItemDao.findIdleByList(idleIdList);
+            Map<Long, NxxIdleItem> map = new HashMap<>();
+            for (NxxIdleItem idle : idleItemModelList) {
+                map.put(idle.getId(), idle);
             }
-            for(NxxOrder i:list){
+            for (NxxOrder i : list) {
                 i.setIdleItem(map.get(i.getIdleId()));
             }
         }
@@ -180,51 +189,55 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * 查询用户卖出的闲置
+     *
      * @param userId
      * @return
      */
+    @Override
     @Transactional(isolation = Isolation.READ_COMMITTED)
-    public List<NxxOrder> getMySoldIdle(Long userId){
-        List<NxxIdleItem> list=idleItemDao.getAllIdleItem(userId);
-        List<NxxOrder> orderList=null;
-        if(list.size()>0){
-            List<Long> idleIdList=new ArrayList<>();
-            for(NxxIdleItem i:list){
+    public List<NxxOrder> getMySoldIdle(Long userId) {
+        List<NxxIdleItem> list = idleItemDao.getAllIdleItem(userId);
+        List<NxxOrder> orderList = null;
+        if (list.size() > 0) {
+            List<Long> idleIdList = new ArrayList<>();
+            for (NxxIdleItem i : list) {
                 idleIdList.add(i.getId());
             }
-            orderList=orderDao.findOrderByIdleIdList(idleIdList);
-            Map<Long,NxxIdleItem> map=new HashMap<>();
-            for(NxxIdleItem idle:list){
-                map.put(idle.getId(),idle);
+            orderList = orderDao.findOrderByIdleIdList(idleIdList);
+            Map<Long, NxxIdleItem> map = new HashMap<>();
+            for (NxxIdleItem idle : list) {
+                map.put(idle.getId(), idle);
             }
-            for(NxxOrder o:orderList){
+            for (NxxOrder o : orderList) {
                 o.setIdleItem(map.get(o.getIdleId()));
             }
         }
         return orderList;
     }
 
-    public PageVo<NxxOrder> getAllOrder(int page, int nums){
-        List<NxxOrder> list=orderDao.getAllOrder((page-1)*nums,nums);
-        if(list.size()>0){
-            List<Long> idleIdList=new ArrayList<>();
-            for(NxxOrder i:list){
+    @Override
+    public PageVo<NxxOrder> getAllOrder(int page, int nums) {
+        List<NxxOrder> list = orderDao.getAllOrder((page - 1) * nums, nums);
+        if (list.size() > 0) {
+            List<Long> idleIdList = new ArrayList<>();
+            for (NxxOrder i : list) {
                 idleIdList.add(i.getIdleId());
             }
-            List<NxxIdleItem> idleItemModelList=idleItemDao.findIdleByList(idleIdList);
-            Map<Long,NxxIdleItem> map=new HashMap<>();
-            for(NxxIdleItem idle:idleItemModelList){
-                map.put(idle.getId(),idle);
+            List<NxxIdleItem> idleItemModelList = idleItemDao.findIdleByList(idleIdList);
+            Map<Long, NxxIdleItem> map = new HashMap<>();
+            for (NxxIdleItem idle : idleItemModelList) {
+                map.put(idle.getId(), idle);
             }
-            for(NxxOrder i:list){
+            for (NxxOrder i : list) {
                 i.setIdleItem(map.get(i.getIdleId()));
             }
         }
-        int count=orderDao.countAllOrder();
-        return new PageVo<>(list,count);
+        int count = orderDao.countAllOrder();
+        return new PageVo<>(list, count);
     }
 
-    public boolean deleteOrder(long id){
-        return orderDao.deleteByPrimaryKey(id)==1;
+    @Override
+    public boolean deleteOrder(long id) {
+        return orderDao.deleteByPrimaryKey(id) == 1;
     }
 }

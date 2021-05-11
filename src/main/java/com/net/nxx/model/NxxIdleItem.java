@@ -3,6 +3,7 @@ package com.net.nxx.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -17,6 +18,7 @@ import java.util.Date;
  */
 @ApiModel(value="com.net.nxx.model.NxxIdleItem")
 @Data
+@ToString
 public class NxxIdleItem implements Serializable {
     /**
      * 自增主键

@@ -79,6 +79,7 @@ public class MessageServiceImpl implements MessageService {
         List<NxxMessage> list = messageDao.getMessage(userId);
         if (list.size() > 0) {
             // 拿到自己所有留言的来源用户
+            System.out.println("我拿到一些message了");
             List<Long> idList = new ArrayList<>();
             for (NxxMessage i : list) {
                 idList.add(i.getUserId());

@@ -31,9 +31,9 @@ public class OrderController {
 
     @ApiOperation("添加订单")
     @PostMapping("/add")
-    public ResultVo addOrder(@CookieValue("shUserId")
+    public ResultVo addOrder(@CookieValue("UserId")
                              @NotNull(message = "登录异常 请重新登录")
-                             @NotEmpty(message = "登录异常 请重新登录") String shUserId,
+                             @NotEmpty(message = "登录异常 请重新登录") String UserId,
                              @RequestBody NxxOrder nxxOrder){
         if(OrderTaskHandler.orderService==null){
             OrderTaskHandler.orderService=orderService;
@@ -42,7 +42,7 @@ public class OrderController {
 
         nxxOrder.setOrderNumber(IdFactoryUtil.getOrderId());
         nxxOrder.setCreateTime(new Date());
-        nxxOrder.setUserId(Long.valueOf(shUserId));
+        nxxOrder.setUserId(Long.valueOf(UserId));
         nxxOrder.setOrderStatus((byte) 0);
         nxxOrder.setPaymentStatus((byte)0);
         if(orderService.addOrder(nxxOrder)){
@@ -54,13 +54,13 @@ public class OrderController {
 
     @ApiOperation("获取订单信息")
     @GetMapping("/info")
-    public ResultVo getOrderInfo(@CookieValue("shUserId")
+    public ResultVo getOrderInfo(@CookieValue("UserId")
                                  @NotNull(message = "登录异常 请重新登录")
-                                 @NotEmpty(message = "登录异常 请重新登录") String shUserId,
+                                 @NotEmpty(message = "登录异常 请重新登录") String UserId,
                                  @RequestParam Long id){
         NxxOrder nxxOrder=orderService.getOrder(id);
-        if(nxxOrder.getUserId().equals(Long.valueOf(shUserId))||
-                nxxOrder.getIdleItem().getUserId().equals(Long.valueOf(shUserId))){
+        if(nxxOrder.getUserId().equals(Long.valueOf(UserId))||
+                nxxOrder.getIdleItem().getUserId().equals(Long.valueOf(UserId))){
             return ResultVo.success(nxxOrder);
         }
         return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
@@ -68,9 +68,9 @@ public class OrderController {
 
     @ApiOperation("更新订单信息")
     @PostMapping("/update")
-    public ResultVo updateOrder(@CookieValue("shUserId")
+    public ResultVo updateOrder(@CookieValue("UserId")
                              @NotNull(message = "登录异常 请重新登录")
-                             @NotEmpty(message = "登录异常 请重新登录") String shUserId,
+                             @NotEmpty(message = "登录异常 请重新登录") String UserId,
                              @RequestBody NxxOrder nxxOrder){
         if(nxxOrder.getPaymentStatus()!=null&&nxxOrder.getPaymentStatus().equals((byte) 1)){
             nxxOrder.setPaymentTime(new Date());
@@ -83,17 +83,17 @@ public class OrderController {
 
     @ApiOperation("我的订单")
     @GetMapping("/my")
-    public ResultVo getMyOrder(@CookieValue("shUserId")
+    public ResultVo getMyOrder(@CookieValue("UserId")
                                  @NotNull(message = "登录异常 请重新登录")
-                                 @NotEmpty(message = "登录异常 请重新登录") String shUserId){
-        return ResultVo.success(orderService.getMyOrder(Long.valueOf(shUserId)));
+                                 @NotEmpty(message = "登录异常 请重新登录") String UserId){
+        return ResultVo.success(orderService.getMyOrder(Long.valueOf(UserId)));
     }
 
     @ApiOperation("我卖出的订单")
     @GetMapping("/my-sold")
-    public ResultVo getMySoldIdle(@CookieValue("shUserId")
+    public ResultVo getMySoldIdle(@CookieValue("UserId")
                                @NotNull(message = "登录异常 请重新登录")
-                               @NotEmpty(message = "登录异常 请重新登录") String shUserId){
-        return ResultVo.success(orderService.getMySoldIdle(Long.valueOf(shUserId)));
+                               @NotEmpty(message = "登录异常 请重新登录") String UserId){
+        return ResultVo.success(orderService.getMySoldIdle(Long.valueOf(UserId)));
     }
 }

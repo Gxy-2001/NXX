@@ -125,7 +125,10 @@ insert into `nxx_idle_item`(`id`, `idle_name`, `idle_details`, `picture_list`, `
                             `release_time`, `idle_status`, `user_id`)
 values (1, '商品1', '在这改商品介绍',
         '[\"https://gxy-seec2.oss-cn-beijing.aliyuncs.com/seec2/20210502170935.jpg\",\"https://gxy-seec2.oss-cn-beijing.aliyuncs.com/seec2/20210502171024.jpg\"]',
-        '1000.00', '南京市', 1, '2020-12-26 23:01:01', 1, 1)
+        '1000.00', '南京市', 1, '2021-05-10 23:01:01', 1, 1),
+       (2, '商品2', '在这改商品介绍',
+        '[\"https://gxy-seec2.oss-cn-beijing.aliyuncs.com/seec2/20210502171024.jpg\"]',
+        '1000.00', '南京市', 1, '2021-05-10 23:01:01', 1, 1);
 
 
 /*Table structure for table `nxx_message` */
@@ -184,26 +187,26 @@ values (1, 1, 'Gxy', '111111', '南京大学');
 
 /*Table structure for table `nxx_idle_item` */
 
-DROP TABLE IF EXISTS `nxx_idle_item`;
-
-CREATE TABLE `nxx_idle_item` (
-                                `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
-                                `idle_name` varchar(64) NOT NULL COMMENT '闲置物名称',
-                                `idle_details` varchar(2048) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '详情',
-                                `picture_list` varchar(1024) NOT NULL COMMENT '图集',
-                                `idle_price` decimal(10,2) NOT NULL COMMENT '价格',
-                                `idle_place` varchar(32) NOT NULL COMMENT '发货地区',
-                                `idle_label` int(11) NOT NULL COMMENT '分类标签',
-                                `release_time` datetime NOT NULL COMMENT '发布时间',
-                                `idle_status` tinyint(4) NOT NULL COMMENT '状态（发布1、下架2、删除0）',
-                                `user_id` bigint(20) NOT NULL COMMENT '用户主键id',
-                                PRIMARY KEY (`id`),
-                                KEY `user_id_index` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-/*Data for the table `nxx_idle_item` */
-insert  into `nxx_idle_item`(`id`,`idle_name`,`idle_details`,`picture_list`,`idle_price`,`idle_place`,`idle_label`,`release_time`,`idle_status`,`user_id`)
-values(16,'苹果XSMAX ','国行256G，面容正常使用，95成新','','3500.00','南京市',1,'2021-05-08 23:01:01',1,1);
+-- DROP TABLE IF EXISTS `nxx_idle_item`;
+--
+-- CREATE TABLE `nxx_idle_item` (
+--                                 `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+--                                 `idle_name` varchar(64) NOT NULL COMMENT '闲置物名称',
+--                                 `idle_details` varchar(2048) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '详情',
+--                                 `picture_list` varchar(1024) NOT NULL COMMENT '图集',
+--                                 `idle_price` decimal(10,2) NOT NULL COMMENT '价格',
+--                                 `idle_place` varchar(32) NOT NULL COMMENT '发货地区',
+--                                 `idle_label` int(11) NOT NULL COMMENT '分类标签',
+--                                 `release_time` datetime NOT NULL COMMENT '发布时间',
+--                                 `idle_status` tinyint(4) NOT NULL COMMENT '状态（发布1、下架2、删除0）',
+--                                 `user_id` bigint(20) NOT NULL COMMENT '用户主键id',
+--                                 PRIMARY KEY (`id`),
+--                                 KEY `user_id_index` (`user_id`)
+-- ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+--
+-- /*Data for the table `nxx_idle_item` */
+-- insert  into `nxx_idle_item`(`id`,`idle_name`,`idle_details`,`picture_list`,`idle_price`,`idle_place`,`idle_label`,`release_time`,`idle_status`,`user_id`)
+-- values(16,'苹果XSMAX ','国行256G，面容正常使用，95成新','','3500.00','南京市',1,'2021-05-08 23:01:01',1,1);
 
 /*Table structure for table `nxx_order` */
 
