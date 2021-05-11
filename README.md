@@ -2,30 +2,18 @@
 
 java 1.8
 
-springboot 2.4.5最新版
+springboot 2.4.5
 
-mysql8以上
+mysql8以上，sql文件在./sql目录下，需要修改配置数据库密码
 
-因为springboot是2.4.x，所以Elasticsearch要7.9.3，Spring Data Elasticsearch要4.1.x
+Elasticsearch7.9.3，建立索引，名为`item`
 
-4.21:整合Swagger-UI
+logstash-7.9.3，安装
 
-~~4.21:开始准备使用SpringSecurity和JWT实现登录注册~~
+maven：clean然后compile
 
-5.2: 加入druid连接池
-
-5.2: 更换了图标
-
-
-运行方法：
-
-sql文件在文件夹里，改配置文件的数据库密码
-
-maven方面clean然后compile
+前端：单独运行
 
 http://localhost:8090/swagger-ui.html  或者  http://localhost:8090/doc.html 为调试界面
 
 
-5.3: 下一步我要集成ES搜索，这是非常难但是很值得学的
-
-5.7: 搜索功能完成大部分了，已经加进去了，测试能跑，并且我使用了插件能同步mysql到ES中，等商品功能上线我就跟
