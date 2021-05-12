@@ -88,7 +88,7 @@ CREATE TABLE `nxx_favorite` (
   `idle_id` bigint NOT NULL COMMENT '闲置物主键id',
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`,`idle_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +97,7 @@ CREATE TABLE `nxx_favorite` (
 
 LOCK TABLES `nxx_favorite` WRITE;
 /*!40000 ALTER TABLE `nxx_favorite` DISABLE KEYS */;
-INSERT INTO `nxx_favorite` VALUES (1,'2021-05-27 00:28:00',1,1);
+INSERT INTO `nxx_favorite` VALUES (1,'2021-05-27 00:28:00',1,1),(39,'2021-05-12 20:15:37',2,54);
 /*!40000 ALTER TABLE `nxx_favorite` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,7 +130,7 @@ CREATE TABLE `nxx_idle_item` (
 
 LOCK TABLES `nxx_idle_item` WRITE;
 /*!40000 ALTER TABLE `nxx_idle_item` DISABLE KEYS */;
-INSERT INTO `nxx_idle_item` VALUES (1,'商品1','在这改商品介绍','[\"https://gxy-seec2.oss-cn-beijing.aliyuncs.com/seec2/20210502170935.jpg\",\"https://gxy-seec2.oss-cn-beijing.aliyuncs.com/seec2/20210502171024.jpg\"]',1000.00,'南京市',1,'2020-12-26 23:01:01',1,1),(54,'商品2','除了骁龙865处理器之外，还搭载了33W块充，配备5000毫安电池容量，让该机的续航能力成为一大特色。另外，该机的屏幕支持144Hz的超高刷新率，还能根据需求调节刷新率档次，让用户的需求得到更好地满足。除此之外，该机还提供了LPDDR5+UFS3.1，支持WIFI6，这些配置即便放在2021年，也依旧非常有竞争力。','[\"http://localhost:8090/img/file1620734950559k30s.jpg\"]',2000.00,'市辖区',1,'2021-05-11 20:09:14',1,1);
+INSERT INTO `nxx_idle_item` VALUES (1,'商品1','在这改商品介绍','[\"https://gxy-seec2.oss-cn-beijing.aliyuncs.com/seec2/20210502170935.jpg\",\"https://gxy-seec2.oss-cn-beijing.aliyuncs.com/seec2/20210502171024.jpg\"]',1000.00,'南京市',1,'2020-12-26 23:01:01',1,1),(54,'商品2','除了骁龙865处理器之外，还搭载了33W块充，配备5000毫安电池容量，让该机的续航能力成为一大特色。另外，该机的屏幕支持144Hz的超高刷新率，还能根据需求调节刷新率档次，让用户的需求得到更好地满足。除此之外，该机还提供了LPDDR5+UFS3.1，支持WIFI6，这些配置即便放在2021年，也依旧非常有竞争力。','[\"http://localhost:8090/img/file1620734950559k30s.jpg\"]',2000.00,'市辖区',1,'2021-05-11 20:09:14',2,1);
 /*!40000 ALTER TABLE `nxx_idle_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,7 +153,7 @@ CREATE TABLE `nxx_message` (
   KEY `user_id_index` (`user_id`),
   KEY `idle_id_index` (`idle_id`),
   KEY `to_user_index` (`to_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -162,6 +162,7 @@ CREATE TABLE `nxx_message` (
 
 LOCK TABLES `nxx_message` WRITE;
 /*!40000 ALTER TABLE `nxx_message` DISABLE KEYS */;
+INSERT INTO `nxx_message` VALUES (35,1,54,'Hello,World!','2021-05-12 19:51:20',1,NULL),(36,2,1,'哈喽啊','2021-05-12 20:22:26',1,NULL);
 /*!40000 ALTER TABLE `nxx_message` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +186,7 @@ CREATE TABLE `nxx_order` (
   `order_status` tinyint NOT NULL COMMENT '订单状态',
   `is_deleted` tinyint DEFAULT NULL COMMENT '是否删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,6 +195,7 @@ CREATE TABLE `nxx_order` (
 
 LOCK TABLES `nxx_order` WRITE;
 /*!40000 ALTER TABLE `nxx_order` DISABLE KEYS */;
+INSERT INTO `nxx_order` VALUES (56,'162082174241710002',2,54,2000.00,1,'支付宝','2021-05-12 20:15:42','2021-05-12 20:22:05',3,NULL);
 /*!40000 ALTER TABLE `nxx_order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,7 +215,7 @@ CREATE TABLE `nxx_order_address` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `orderId` (`order_id`),
   KEY `order_id_index` (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -222,7 +224,7 @@ CREATE TABLE `nxx_order_address` (
 
 LOCK TABLES `nxx_order_address` WRITE;
 /*!40000 ALTER TABLE `nxx_order_address` DISABLE KEYS */;
-INSERT INTO `nxx_order_address` VALUES (1,1,'Gxy','111111','南京大学'),(42,55,'Gxy','12345678890','北京市市辖区东城区江苏');
+INSERT INTO `nxx_order_address` VALUES (1,1,'Gxy','111111','南京大学'),(42,55,'Gxy','12345678890','北京市市辖区东城区江苏'),(43,56,'Gxy','12345678890','北京市市辖区东城区江苏');
 /*!40000 ALTER TABLE `nxx_order_address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -265,4 +267,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-11 21:31:41
+-- Dump completed on 2021-05-12 21:22:37
