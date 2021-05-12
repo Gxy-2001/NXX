@@ -105,6 +105,7 @@ public class MessageServiceImpl implements MessageService {
             }
             for (NxxMessage i : list) {
                 i.setIdle(idleMap.get(i.getIdleId()));
+                System.out.println(i);
             }
         }
         return list;
