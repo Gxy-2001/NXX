@@ -3,7 +3,6 @@ package com.net.nxx.controller;
 import com.net.nxx.common.exception.ErrorMsg;
 import com.net.nxx.model.NxxOrder;
 import com.net.nxx.service.OrderService;
-import com.net.nxx.utils.OrderTaskHandler;
 import com.net.nxx.vo.ResultVo;
 
 import io.swagger.annotations.Api;
@@ -33,9 +32,6 @@ public class OrderController {
                              @NotNull(message = "登录异常 请重新登录")
                              @NotEmpty(message = "登录异常 请重新登录") String UserId,
                              @RequestBody NxxOrder nxxOrder){
-        if(OrderTaskHandler.orderService==null){
-            OrderTaskHandler.orderService=orderService;
-        }
 
 
         nxxOrder.setOrderNumber(String.valueOf(System.currentTimeMillis()));

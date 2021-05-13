@@ -10,9 +10,9 @@ mysql8以上，sql文件在`./sql`目录下
 
 Elasticsearch7.9.3，要开启，建立索引，名为`item`
 
-logstash-7.9.3，安装logstash-input-jdbc做es和mysql的增量同步
+logstash-7.9.3，安装logstash-input-jdbc（做es和mysql的增量同步）
 
-logstash配置文件在`./conf`下，再看那里的readme
+logstash配置文件在`./ES`下，再看那里的readme
 
 maven：clean然后compile
 

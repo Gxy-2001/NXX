@@ -5,8 +5,6 @@ import com.net.nxx.dao.NxxOrderDao;
 import com.net.nxx.model.NxxIdleItem;
 import com.net.nxx.model.NxxOrder;
 import com.net.nxx.service.OrderService;
-import com.net.nxx.utils.OrderTask;
-import com.net.nxx.utils.OrderTaskHandler;
 import com.net.nxx.vo.PageVo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -33,24 +31,9 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private NxxIdleItemDao idleItemDao;
 
-    /**
-     * 新增订单，同时下架闲置
-     * 用了事务串行化，后续要优化，修改更新的sql，增加更新条件，而不是在代码中判断条件
-     * 业务逻辑可优化，改为支付时才下架。
-     * 新功能待做，需要新增订单超时处理
-     * （订单超时：
-     * 1、重新上架闲置；2、修改订单状态；
-     * 3、确保订单取消前不会影响用户的支付，支付前要判断订单状态并加读锁，取消订单时要判断订单状态为未支付才能取消；
-     * 4、保证延期任务一定执行，即确保任务不会因为系统异常而消失）
-     *
-     * @param orderModel
-     * @return
-     */
-
     private static HashMap<Integer, ReentrantLock> lockMap = new HashMap<>();
 
     static {
-//        ReentrantLock lock=new ReentrantLock(true);
         for (int i = 0; i < 100; i++) {
             lockMap.put(i, new ReentrantLock(true));
         }
@@ -90,8 +73,6 @@ public class OrderServiceImpl implements OrderService {
         if (idleItemDao.updateByPrimaryKeySelective(idleItem) == 1) {
             if (orderDao.insert(orderModel) == 1) {
                 orderModel.setOrderStatus((byte) 4);
-                //半小时未支付则取消订单
-                OrderTaskHandler.addOrder(new OrderTask(orderModel, 30 * 60));
                 return true;
             } else {
                 throw new RuntimeException();

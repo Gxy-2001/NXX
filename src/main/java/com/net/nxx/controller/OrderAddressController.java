@@ -33,6 +33,7 @@ public class OrderAddressController {
                                     @RequestBody NxxOrderAddress nxxOrderAddress) {
         return ResultVo.success(orderAddressService.addOrderAddress(nxxOrderAddress));
     }
+
     @ApiOperation("订单更新地址")
     @PostMapping("/update")
     public ResultVo updateOrderAddress(@CookieValue("UserId")
@@ -44,6 +45,7 @@ public class OrderAddressController {
         }
         return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
     }
+
     @ApiOperation("订单地址表")
     @GetMapping("/info")
     public ResultVo getOrderAddress(@CookieValue("UserId")
