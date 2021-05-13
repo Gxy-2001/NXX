@@ -1,6 +1,5 @@
 package com.net.nxx.config;
 
-import com.net.nxx.utils.LogCostInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -31,11 +30,12 @@ public class GlobalCorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LogCostInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(new Interceptor()).addPathPatterns("/**");
     }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/img/**").addResourceLocations("file:"+"src/main/resources/static/");
+        registry.addResourceHandler("/img/**").addResourceLocations("file:" + "src/main/resources/static/");
     }
 }
 //@Configuration

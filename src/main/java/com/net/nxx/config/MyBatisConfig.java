@@ -10,6 +10,6 @@ import org.springframework.context.annotation.Configuration;
  * @create: 2021-04-21
  */
 @Configuration
-@MapperScan("com.net.nxx.mbg.mapper")
+@MapperScan("com.net.nxx.common.exception.mbg.mapper")
 public class MyBatisConfig {
 }

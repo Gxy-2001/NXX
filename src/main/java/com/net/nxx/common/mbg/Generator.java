@@ -1,4 +1,4 @@
-package com.net.nxx.mbg;
+package com.net.nxx.common.mbg;
 
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;

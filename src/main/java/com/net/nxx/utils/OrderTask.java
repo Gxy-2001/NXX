@@ -2,6 +2,7 @@ package com.net.nxx.utils;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.net.nxx.model.NxxOrder;
+import lombok.Data;
 
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
@@ -10,6 +11,7 @@ import java.util.concurrent.TimeUnit;
  * @Author: XiaYu
  * @Date 2021/5/9 10:10
  */
+@Data
 public class OrderTask implements Delayed {
     /**
      * 延迟时间
@@ -19,13 +21,13 @@ public class OrderTask implements Delayed {
 
     private NxxOrder orderModel;
 
-    public OrderTask(){
+    public OrderTask() {
 
     }
 
     public OrderTask(NxxOrder orderModel, long time) {
         this.orderModel = orderModel;
-        this.time = System.currentTimeMillis()+1000*time;
+        this.time = System.currentTimeMillis() + 1000 * time;
     }
 
     @Override

@@ -79,7 +79,7 @@ public class AdminController {
         return ResultVo.success(adminService.getAdminList(p, n));
     }
 
-    @ApiOperation("admin注册")
+    @ApiOperation("添加管理员")
     @PostMapping("add")
     public ResultVo addAdmin(HttpSession session,
                              @RequestBody NxxAdmin adminModel) {
@@ -92,7 +92,7 @@ public class AdminController {
         return ResultVo.fail(ErrorMsg.PARAM_ERROR);
     }
 
-    @ApiOperation("")
+    @ApiOperation("列出商品")
     @GetMapping("idleList")
     public ResultVo idleList(HttpSession session,
                              @RequestParam("status") @NotNull @NotEmpty Integer status,

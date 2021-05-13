@@ -1,4 +1,4 @@
-package com.net.nxx.utils;
+package com.net.nxx.config;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,11 +9,11 @@ import java.util.Date;
 
 /**
  * @program: nxx
- * @description:
+ * @description: 处理器拦截器
  * @author: Gxy-2001
  * @create: 2021-05-03
  */
-public class LogCostInterceptor implements HandlerInterceptor {
+public class Interceptor implements HandlerInterceptor {
     private long start = System.currentTimeMillis();
 
     @Override
@@ -24,7 +24,7 @@ public class LogCostInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-        System.out.println("请求：" + httpServletRequest.getRequestURI() + "?" + httpServletRequest.getQueryString() + "，耗时" + (System.currentTimeMillis() - start) + "ms  " + new Date());
+        System.out.println(httpServletRequest.getRequestURI() + httpServletRequest.getQueryString() + "，耗时" + (System.currentTimeMillis() - start) + "ms");
     }
 
     @Override

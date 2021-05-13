@@ -3,13 +3,11 @@ package com.net.nxx.controller;
 import com.net.nxx.common.exception.ErrorMsg;
 import com.net.nxx.model.NxxOrder;
 import com.net.nxx.service.OrderService;
-import com.net.nxx.utils.IdFactoryUtil;
 import com.net.nxx.utils.OrderTaskHandler;
 import com.net.nxx.vo.ResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +38,7 @@ public class OrderController {
         }
 
 
-        nxxOrder.setOrderNumber(IdFactoryUtil.getOrderId());
+        nxxOrder.setOrderNumber(String.valueOf(System.currentTimeMillis()));
         nxxOrder.setCreateTime(new Date());
         nxxOrder.setUserId(Long.valueOf(UserId));
         nxxOrder.setOrderStatus((byte) 0);

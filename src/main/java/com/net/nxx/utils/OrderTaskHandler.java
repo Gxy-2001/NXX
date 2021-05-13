@@ -58,7 +58,6 @@ public class OrderTaskHandler {
                         } else {
                             System.out.println("取消任务：" + orderTask.getOrderModel());
                         }
-
                     }
                 }
             }
