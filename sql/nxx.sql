@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: nxx
+-- Host: localhost    Database: nxx
 -- ------------------------------------------------------
--- Server version	8.0.20
+-- Server version	8.0.23
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT = @@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS = @@CHARACTER_SET_RESULTS */;
@@ -14,6 +14,14 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0 */;
 /*!40101 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES = @@SQL_NOTES, SQL_NOTES = 0 */;
+
+--
+-- Current Database: `nxx`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS */ `nxx` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+
+USE `nxx`;
 
 --
 -- Table structure for table `nxx_address`
@@ -86,6 +94,49 @@ LOCK TABLES `nxx_admin` WRITE;
 INSERT INTO `nxx_admin`
 VALUES (1, '111111', '123456', '管理员');
 /*!40000 ALTER TABLE `nxx_admin`
+    ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `nxx_carousel`
+--
+
+DROP TABLE IF EXISTS `nxx_carousel`;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `nxx_carousel`
+(
+    `carousel_id`   int                                                     NOT NULL AUTO_INCREMENT COMMENT '首页轮播图主键id',
+    `carousel_url`  varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '轮播图',
+    `redirect_url`  varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '''##''' COMMENT '点击后的跳转地址(默认不跳转)',
+    `carousel_rank` int                                                     NOT NULL DEFAULT '0' COMMENT '排序值(字段越大越靠前)',
+    `is_deleted`    tinyint                                                 NOT NULL DEFAULT '0' COMMENT '删除标识字段(0-未删除 1-已删除)',
+    `create_time`   datetime                                                NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_user`   int                                                     NOT NULL DEFAULT '0' COMMENT '创建者id',
+    `update_time`   datetime                                                NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+    `update_user`   int                                                     NOT NULL DEFAULT '0' COMMENT '修改者id',
+    PRIMARY KEY (`carousel_id`) USING BTREE
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 8
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `nxx_carousel`
+--
+
+LOCK TABLES `nxx_carousel` WRITE;
+/*!40000 ALTER TABLE `nxx_carousel`
+    DISABLE KEYS */;
+INSERT INTO `nxx_carousel`
+VALUES (2, 'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner1.png',
+        'https://juejin.im/book/5da2f9d4f265da5b81794d48/section/5da2f9d6f265da5b794f2189', 13, 0,
+        '2019-11-29 00:00:00', 0, '2019-11-29 00:00:00', 0),
+       (5, 'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner2.png',
+        'https://juejin.im/book/5da2f9d4f265da5b81794d48/section/5da2f9d6f265da5b794f2189', 0, 0, '2019-11-29 00:00:00',
+        0, '2019-11-29 00:00:00', 0);
+/*!40000 ALTER TABLE `nxx_carousel`
     ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -335,31 +386,6 @@ VALUES (1, '111111', '123456', 'Gxy', 'https://cdn.jsdelivr.net/gh/Gxy-2001/img/
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE = @OLD_TIME_ZONE */;
 
-DROP TABLE IF EXISTS `nxx_carousel`;
-CREATE TABLE `nxx_carousel`  (
-                                            `carousel_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '首页轮播图主键id',
-                                            `carousel_url` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '轮播图',
-                                            `redirect_url` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '\'##\'' COMMENT '点击后的跳转地址(默认不跳转)',
-                                            `carousel_rank` int(11) NOT NULL DEFAULT 0 COMMENT '排序值(字段越大越靠前)',
-                                            `is_deleted` tinyint(4) NOT NULL DEFAULT 0 COMMENT '删除标识字段(0-未删除 1-已删除)',
-                                            `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-                                            `create_user` int(11) NOT NULL DEFAULT 0 COMMENT '创建者id',
-                                            `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
-                                            `update_user` int(11) NOT NULL DEFAULT 0 COMMENT '修改者id',
-                                            PRIMARY KEY (`carousel_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- author 13
--- qq交流群 796794009
--- email 2449207463@qq.com
--- link https://github.com/newbee-ltd
--- Records of tb_newbee_mall_carousel
--- ----------------------------
-INSERT INTO `nxx_carousel` VALUES (2, 'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner1.png', 'https://juejin.im/book/5da2f9d4f265da5b81794d48/section/5da2f9d6f265da5b794f2189', 13, 0, '2019-11-29 00:00:00', 0, '2019-11-29 00:00:00', 0);
-INSERT INTO `nxx_carousel` VALUES (5, 'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner2.png', 'https://juejin.im/book/5da2f9d4f265da5b81794d48/section/5da2f9d6f265da5b794f2189', 0, 0, '2019-11-29 00:00:00', 0, '2019-11-29 00:00:00', 0);
-
-
 /*!40101 SET SQL_MODE = @OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS */;
@@ -368,4 +394,4 @@ INSERT INTO `nxx_carousel` VALUES (5, 'https://newbee-mall.oss-cn-beijing.aliyun
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-13 15:23:47
+-- Dump completed on 2021-05-15 23:18:05
