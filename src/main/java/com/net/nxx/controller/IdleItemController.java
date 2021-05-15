@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-import javax.annotation.Resource;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -39,7 +38,7 @@ public class IdleItemController {
         System.out.println("IDLE ADD here!!" + nxxIdleItem);
         String l = nxxIdleItem.getPictureList();
 
-//        nxxIdleItem.setIdlePlace("src/main/resources/static" + nxxIdleItem.getIdlePlace().substring(
+//      nxxIdleItem.setIdlePlace("src/main/resources/static" + nxxIdleItem.getIdlePlace().substring(
 //                nxxIdleItem.getIdlePlace().length()-17));
         System.out.println("IDLE ADD here!!" + nxxIdleItem);
 

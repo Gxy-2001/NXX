@@ -9,6 +9,7 @@ package com.net.nxx.common.exception;
  */
 public enum ErrorMsg {
 
+    DATA_NOT_EXIST("未查询到记录！"),
     ACCOUNT_EXIT("用户已存在"),
     ACCOUNT_Ban("账号已被封禁"),
     ACCOUNT_NOT_EXIT("用户不存在"),
