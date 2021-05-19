@@ -107,14 +107,14 @@ DROP TABLE IF EXISTS `nxx_carousel`;
 CREATE TABLE `nxx_carousel`
 (
     `carousel_id`   int                                                     NOT NULL AUTO_INCREMENT COMMENT '首页轮播图主键id',
-    `carousel_url`  varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '轮播图',
-    `redirect_url`  varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '''##''' COMMENT '点击后的跳转地址(默认不跳转)',
-    `carousel_rank` int                                                     NOT NULL DEFAULT '0' COMMENT '排序值(字段越大越靠前)',
-    `is_deleted`    tinyint                                                 NOT NULL DEFAULT '0' COMMENT '删除标识字段(0-未删除 1-已删除)',
+    `carousel_url`  varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '轮播图',
+    `redirect_url`  varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '''##''' COMMENT '点击后的跳转地址(默认不跳转)',
+    `carousel_rank` int                                                     DEFAULT '0' COMMENT '排序值(字段越大越靠前)',
+    `is_deleted`    tinyint                                                 DEFAULT '0' COMMENT '删除标识字段(0-未删除 1-已删除)',
     `create_time`   datetime                                                NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `create_user`   int                                                     NOT NULL DEFAULT '0' COMMENT '创建者id',
+    `create_user`   int                                                     DEFAULT '0' COMMENT '创建者id',
     `update_time`   datetime                                                NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
-    `update_user`   int                                                     NOT NULL DEFAULT '0' COMMENT '修改者id',
+    `update_user`   int                                                     DEFAULT '0' COMMENT '修改者id',
     PRIMARY KEY (`carousel_id`) USING BTREE
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 8
@@ -130,15 +130,27 @@ LOCK TABLES `nxx_carousel` WRITE;
 /*!40000 ALTER TABLE `nxx_carousel`
     DISABLE KEYS */;
 INSERT INTO `nxx_carousel`
-VALUES (2, 'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner1.png',
-        'https://juejin.im/book/5da2f9d4f265da5b81794d48/section/5da2f9d6f265da5b794f2189', 13, 0,
-        '2019-11-29 00:00:00', 0, '2019-11-29 00:00:00', 0),
-       (5, 'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner2.png',
-        'https://juejin.im/book/5da2f9d4f265da5b81794d48/section/5da2f9d6f265da5b794f2189', 0, 0, '2019-11-29 00:00:00',
-        0, '2019-11-29 00:00:00', 0);
+VALUES (0,
+        'https://img-host-service.oss-cn-shanghai.aliyuncs.com/nxx/1.png?versionId=CAEQIRiBgICRseeAzBciIGZiNmMwNjNmYWQ3NTQ5ZmM5MDBiZmMxYTU3YzMxY2Rj',
+        'https://img-host-service.oss-cn-shanghai.aliyuncs.com/nxx/1.png?versionId=CAEQIRiBgICRseeAzBciIGZiNmMwNjNmYWQ3NTQ5ZmM5MDBiZmMxYTU3YzMxY2Rj',
+        0, 0,'2021-05-19 00:00:00',0, '2021-05-19 00:00:00', 0),
+       (1,
+        'https://img-host-service.oss-cn-shanghai.aliyuncs.com/nxx/2.png?versionId=CAEQIRiBgMCIseeAzBciIDMyNDdjZDllNmU2ZDRkMDc5NjliZDQ2NmZlNjViYmUx',
+        'https://juejin.im/book/5da2f9d4f265da5b81794d48/section/5da2f9d6f265da5b794f2189',
+        0, 0, '2021-05-19 00:00:00',0, '2021-05-19 00:00:00', 0),
+       (2,
+        'https://img-host-service.oss-cn-shanghai.aliyuncs.com/nxx/3.png?versionId=CAEQIRiBgMCRseeAzBciIGM4YjNjNzhmMThhZDQwMjU5NzUwY2Y4YWI0ODU4NjEz',
+        'https://juejin.im/book/5da2f9d4f265da5b81794d48/section/5da2f9d6f265da5b794f2189',
+        0, 0, '2021-05-19 00:00:00',0, '2021-05-19 00:00:00', 0),
+       (3,
+        'https://img-host-service.oss-cn-shanghai.aliyuncs.com/nxx/4.png?versionId=CAEQIRiBgICJseeAzBciIDc5YTM5YThlZGViODRiMmY4NWM2OGQ4Mzc5ZDk0OGQz',
+        'https://juejin.im/book/5da2f9d4f265da5b81794d48/section/5da2f9d6f265da5b794f2189',
+        0, 0, '2021-05-19 00:00:00',0, '2021-05-19 00:00:00', 0)
+        ;
 /*!40000 ALTER TABLE `nxx_carousel`
     ENABLE KEYS */;
 UNLOCK TABLES;
+ALTER TABLE `nxx_carousel` AUTO_INCREMENT=4;
 
 --
 -- Table structure for table `nxx_favorite`

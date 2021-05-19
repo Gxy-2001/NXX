@@ -29,13 +29,32 @@ public class CarouselController {
      * 列表
      */
     @ApiOperation("获取轮播图列表")
-    @GetMapping(value = "/carousels/list")
+    @GetMapping(value = {"/carousels/list",})
     public ResultVo list(HttpSession session,
                          @RequestParam(value = "page", required = false) Integer page,
                          @RequestParam(value = "nums", required = false) Integer nums) {
         if (session.getAttribute("admin") == null) {
             return ResultVo.fail(ErrorMsg.COOKIE_ERROR);
         }
+        int p = 1;
+        int n = 8;
+        if (null != page) {
+            p = page > 0 ? page : 1;
+        }
+        if (null != nums) {
+            n = nums > 0 ? nums : 8;
+        }
+        return ResultVo.success(carouselService.getCarouselPage(p, n));
+    }
+
+    /**
+     * 前端首页获取轮播图__不需要验证登录
+     */
+    @ApiOperation("前端首页获取轮播图")
+    @GetMapping(value = "/carousels/get")
+    public ResultVo get(HttpSession session,
+                         @RequestParam(value = "page", required = false) Integer page,
+                         @RequestParam(value = "nums", required = false) Integer nums) {
         int p = 1;
         int n = 8;
         if (null != page) {
