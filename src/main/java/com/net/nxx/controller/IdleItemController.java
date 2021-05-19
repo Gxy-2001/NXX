@@ -41,6 +41,7 @@ public class IdleItemController {
 
 //        nxxIdleItem.setIdlePlace("src/main/resources/static" + nxxIdleItem.getIdlePlace().substring(
 //                nxxIdleItem.getIdlePlace().length()-17));
+
         System.out.println("IDLE ADD here!!" + nxxIdleItem);
 
         if (idleItemService.addIdleItem(nxxIdleItem)) {
