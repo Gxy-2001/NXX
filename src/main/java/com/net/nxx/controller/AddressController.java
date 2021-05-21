@@ -3,7 +3,7 @@ package com.net.nxx.controller;
 import com.net.nxx.common.exception.ErrorMsg;
 import com.net.nxx.model.NxxAddress;
 import com.net.nxx.service.AdressService;
-import com.net.nxx.vo.ResultVo;
+import com.net.nxx.model.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,50 +27,50 @@ public class AddressController {
 
     @ApiOperation("获取地址")
     @GetMapping("/info")
-    public  ResultVo getAddress(@CookieValue("UserId")
+    public Result getAddress(@CookieValue("UserId")
                                 @NotNull(message = "登录异常 请重新登录")
                                 @NotEmpty(message = "登录异常 请重新登录") String UserId,
-                                @RequestParam(value = "id",required = false) Long id){
+                             @RequestParam(value = "id",required = false) Long id){
         if(null==id){
-            return ResultVo.success(addressService.getAddressByUser(Long.valueOf(UserId)));
+            return Result.success(addressService.getAddressByUser(Long.valueOf(UserId)));
         }else {
-            return ResultVo.success(addressService.getAddressById(id,Long.valueOf(UserId)));
+            return Result.success(addressService.getAddressById(id,Long.valueOf(UserId)));
         }
     }
     @ApiOperation("添加地址")
     @PostMapping("/add")
-    public ResultVo addAddress(@CookieValue("UserId")
+    public Result addAddress(@CookieValue("UserId")
                                @NotNull(message = "登录异常 请重新登录")
                                @NotEmpty(message = "登录异常 请重新登录") String UserId,
-                               @RequestBody NxxAddress addressModel){
+                             @RequestBody NxxAddress addressModel){
         addressModel.setUserId(Long.valueOf(UserId));
         if(addressService.addAddress(addressModel)){
-            return ResultVo.success(addressModel);
+            return Result.success(addressModel);
         }
-        return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
+        return Result.fail(ErrorMsg.SYSTEM_ERROR);
     }
     @ApiOperation("更新地址")
     @PostMapping("/update")
-    public ResultVo updateAddress(@CookieValue("UserId")
+    public Result updateAddress(@CookieValue("UserId")
                                   @NotNull(message = "登录异常 请重新登录")
                                   @NotEmpty(message = "登录异常 请重新登录") String UserId,
-                                  @RequestBody NxxAddress addressModel){
+                                @RequestBody NxxAddress addressModel){
         addressModel.setUserId(Long.valueOf(UserId));
         if(addressService.updateAddress(addressModel)){
-            return ResultVo.success();
+            return Result.success();
         }
-        return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
+        return Result.fail(ErrorMsg.SYSTEM_ERROR);
     }
     @ApiOperation("删除地址")
     @PostMapping("/delete")
-    public ResultVo deleteAddress(@CookieValue("UserId")
+    public Result deleteAddress(@CookieValue("UserId")
                                   @NotNull(message = "登录异常 请重新登录")
                                   @NotEmpty(message = "登录异常 请重新登录") String UserId,
-                                  @RequestBody NxxAddress addressModel){
+                                @RequestBody NxxAddress addressModel){
         addressModel.setUserId(Long.valueOf(UserId));
         if(addressService.deleteAddress(addressModel)){
-            return ResultVo.success();
+            return Result.success();
         }
-        return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
+        return Result.fail(ErrorMsg.SYSTEM_ERROR);
     }
 }

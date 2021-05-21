@@ -3,7 +3,7 @@ package com.net.nxx.service.impl;
 import com.net.nxx.dao.NxxAdminDao;
 import com.net.nxx.model.NxxAdmin;
 import com.net.nxx.service.AdminService;
-import com.net.nxx.vo.PageVo;
+import com.net.nxx.model.Page;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -55,10 +55,10 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public PageVo<NxxAdmin> getAdminList(int page, int nums) {
+    public Page<NxxAdmin> getAdminList(int page, int nums) {
         List<NxxAdmin> list = adminDao.getList((page - 1) * nums, nums);
         int count = adminDao.getCount();
-        return new PageVo<>(list, count);
+        return new Page<>(list, count);
     }
 
 

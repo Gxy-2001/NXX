@@ -3,7 +3,7 @@ package com.net.nxx.controller;
 import com.net.nxx.common.exception.ErrorMsg;
 import com.net.nxx.model.NxxFavorite;
 import com.net.nxx.service.FavoriteService;
-import com.net.nxx.vo.ResultVo;
+import com.net.nxx.model.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,45 +29,45 @@ public class FavoriteController {
 
     @ApiOperation("添加收藏")
     @PostMapping("/add")
-    public ResultVo addFavorite(@CookieValue("UserId")
+    public Result addFavorite(@CookieValue("UserId")
                                 @NotNull(message = "登录异常 请重新登录")
                                 @NotEmpty(message = "登录异常 请重新登录") String UserId,
-                                @RequestBody NxxFavorite nxxFavorite) {
+                              @RequestBody NxxFavorite nxxFavorite) {
         nxxFavorite.setUserId(Long.valueOf(UserId));
         nxxFavorite.setCreateTime(new Date());
         if (favoriteService.addFavorite(nxxFavorite)) {
-            return ResultVo.success(nxxFavorite.getId());
+            return Result.success(nxxFavorite.getId());
         }
-        return ResultVo.fail(ErrorMsg.FAVORITE_EXIT);
+        return Result.fail(ErrorMsg.FAVORITE_EXIT);
     }
 
     @ApiOperation("删除收藏")
     @GetMapping("/delete")
-    public ResultVo deleteFavorite(@CookieValue("UserId")
+    public Result deleteFavorite(@CookieValue("UserId")
                                    @NotNull(message = "登录异常 请重新登录")
                                    @NotEmpty(message = "登录异常 请重新登录") String UserId,
-                                   @RequestParam Long id) {
+                                 @RequestParam Long id) {
         if (favoriteService.deleteFavorite(id)) {
-            return ResultVo.success();
+            return Result.success();
         }
-        return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
+        return Result.fail(ErrorMsg.SYSTEM_ERROR);
     }
 
     @ApiOperation("检查收藏")
     @GetMapping("/check")
-    public ResultVo checkFavorite(@CookieValue("UserId")
+    public Result checkFavorite(@CookieValue("UserId")
                                   @NotNull(message = "登录异常 请重新登录")
                                   @NotEmpty(message = "登录异常 请重新登录") String UserId,
-                                  @RequestParam Long idleId) {
-        return ResultVo.success(favoriteService.isFavorite(Long.valueOf(UserId), idleId));
+                                @RequestParam Long idleId) {
+        return Result.success(favoriteService.isFavorite(Long.valueOf(UserId), idleId));
     }
 
     @ApiOperation("我的收藏")
     @GetMapping("/my")
-    public ResultVo getMyFavorite(@CookieValue("UserId")
+    public Result getMyFavorite(@CookieValue("UserId")
                                   @NotNull(message = "登录异常 请重新登录")
                                   @NotEmpty(message = "登录异常 请重新登录") String UserId) {
-        return ResultVo.success(favoriteService.getAllFavorite(Long.valueOf(UserId)));
+        return Result.success(favoriteService.getAllFavorite(Long.valueOf(UserId)));
     }
 
 }

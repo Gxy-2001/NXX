@@ -3,7 +3,7 @@ package com.net.nxx.service.impl;
 import com.net.nxx.dao.NxxUserDao;
 import com.net.nxx.model.NxxUser;
 import com.net.nxx.service.UserService;
-import com.net.nxx.vo.PageVo;
+import com.net.nxx.model.Page;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageVo<NxxUser> getUserByStatus(int status, int page, int nums) {
+    public Page<NxxUser> getUserByStatus(int status, int page, int nums) {
         List<NxxUser> list;
         int count = 0;
         if (status == 0) {
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
             count = userDao.countBanUser();
             list = userDao.getBanUser((page - 1) * nums, nums);
         }
-        return new PageVo<>(list, count);
+        return new Page<>(list, count);
     }
 
 }

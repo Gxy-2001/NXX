@@ -5,7 +5,7 @@ import com.net.nxx.dao.NxxOrderDao;
 import com.net.nxx.model.NxxIdleItem;
 import com.net.nxx.model.NxxOrder;
 import com.net.nxx.service.OrderService;
-import com.net.nxx.vo.PageVo;
+import com.net.nxx.model.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -197,7 +197,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public PageVo<NxxOrder> getAllOrder(int page, int nums) {
+    public Page<NxxOrder> getAllOrder(int page, int nums) {
         List<NxxOrder> list = orderDao.getAllOrder((page - 1) * nums, nums);
         if (list.size() > 0) {
             List<Long> idleIdList = new ArrayList<>();
@@ -214,7 +214,7 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         int count = orderDao.countAllOrder();
-        return new PageVo<>(list, count);
+        return new Page<>(list, count);
     }
 
     @Override

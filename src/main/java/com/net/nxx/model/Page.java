@@ -1,4 +1,4 @@
-package com.net.nxx.vo;
+package com.net.nxx.model;
 
 import java.util.List;
 
@@ -8,14 +8,14 @@ import java.util.List;
  * @author: Gxy-2001
  * @create: 2021-04-21
  */
-public class PageVo <E>{
+public class Page<E>{
     private List<E> list;
     private int count;
 
-    public PageVo() {
+    public Page() {
     }
 
-    public PageVo(List<E> list, int count) {
+    public Page(List<E> list, int count) {
         this.list = list;
         this.count = count;
     }

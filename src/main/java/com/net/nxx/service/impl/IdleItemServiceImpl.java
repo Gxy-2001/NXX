@@ -1,25 +1,17 @@
 package com.net.nxx.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.net.nxx.dao.NxxIdleItemDao;
 import com.net.nxx.dao.NxxUserDao;
 import com.net.nxx.model.NxxIdleItem;
 import com.net.nxx.model.NxxUser;
 import com.net.nxx.service.IdleItemService;
-import com.net.nxx.vo.PageVo;
-import org.elasticsearch.action.delete.DeleteRequest;
-import org.elasticsearch.action.delete.DeleteResponse;
-import org.elasticsearch.action.index.IndexRequest;
-import org.elasticsearch.action.index.IndexResponse;
+import com.net.nxx.model.Page;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.common.xcontent.XContentType;
-import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.search.MultiMatchQuery;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,7 +104,7 @@ public class IdleItemServiceImpl implements IdleItemService {
      * @return
      */
     @Override
-    public PageVo<NxxIdleItem> findIdleItem(String findValue, int page, int nums) {
+    public Page<NxxIdleItem> findIdleItem(String findValue, int page, int nums) {
         findValue = findValue.trim();
         LinkedList<Long> IdList = new LinkedList<>();
         //创建请求对象
@@ -185,7 +177,7 @@ public class IdleItemServiceImpl implements IdleItemService {
         }
         //int count = idleItemDao.countIdleItem(findValue);
         int count = IdList.size();
-        return new PageVo<>(list, count);
+        return new Page<>(list, count);
     }
 
     /**
@@ -198,7 +190,7 @@ public class IdleItemServiceImpl implements IdleItemService {
      * @return
      */
     @Override
-    public PageVo<NxxIdleItem> findIdleItemByLable(int idleLabel, int page, int nums) {
+    public Page<NxxIdleItem> findIdleItemByLable(int idleLabel, int page, int nums) {
         List<NxxIdleItem> list = idleItemDao.findIdleItemByLable(idleLabel, (page - 1) * nums, nums);
         if (list.size() > 0) {
             List<Long> idList = new ArrayList<>();
@@ -215,7 +207,7 @@ public class IdleItemServiceImpl implements IdleItemService {
             }
         }
         int count = idleItemDao.countIdleItemByLable(idleLabel);
-        return new PageVo<>(list, count);
+        return new Page<>(list, count);
     }
 
     /**
@@ -230,7 +222,7 @@ public class IdleItemServiceImpl implements IdleItemService {
     }
 
     @Override
-    public PageVo<NxxIdleItem> adminGetIdleList(int status, int page, int nums) {
+    public Page<NxxIdleItem> adminGetIdleList(int status, int page, int nums) {
         List<NxxIdleItem> list = idleItemDao.getIdleItemByStatus(status, (page - 1) * nums, nums);
         if (list.size() > 0) {
             List<Long> idList = new ArrayList<>();
@@ -247,6 +239,6 @@ public class IdleItemServiceImpl implements IdleItemService {
             }
         }
         int count = idleItemDao.countIdleItemByStatus(status);
-        return new PageVo<>(list, count);
+        return new Page<>(list, count);
     }
 }

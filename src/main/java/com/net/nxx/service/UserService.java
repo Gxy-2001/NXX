@@ -1,7 +1,7 @@
 package com.net.nxx.service;
 
 import com.net.nxx.model.NxxUser;
-import com.net.nxx.vo.PageVo;
+import com.net.nxx.model.Page;
 
 /**
  * @program: NXX
@@ -48,5 +48,5 @@ public interface UserService {
      */
     boolean updatePassword(String newPassword, String oldPassword,Long id);
 
-    PageVo<NxxUser> getUserByStatus(int status, int page , int nums);
+    Page<NxxUser> getUserByStatus(int status, int page , int nums);
 }

@@ -1,7 +1,7 @@
 package com.net.nxx.service;
 
 import com.net.nxx.model.NxxAdmin;
-import com.net.nxx.vo.PageVo;
+import com.net.nxx.model.Page;
 
 
 /**
@@ -32,5 +32,5 @@ public interface AdminService {
 
 
 
-    PageVo<NxxAdmin> getAdminList(int page, int nums);
+    Page<NxxAdmin> getAdminList(int page, int nums);
 }

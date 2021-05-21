@@ -3,7 +3,7 @@ package com.net.nxx.service.impl;
 import com.net.nxx.dao.NxxCarouselDao;
 import com.net.nxx.model.NxxCarousel;
 import com.net.nxx.service.CarouselService;
-import com.net.nxx.vo.PageVo;
+import com.net.nxx.model.Page;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +21,10 @@ public class CarouselServiceImpl implements CarouselService {
     private NxxCarouselDao carouselDao;
 
     @Override
-    public PageVo<NxxCarousel> getCarouselPage(int page, int limit){
+    public Page<NxxCarousel> getCarouselPage(int page, int limit){
         List<NxxCarousel> list = carouselDao.getList((page - 1) * limit, limit);
         int total = carouselDao.getTotalCarousels();
-        return new PageVo<>(list, total);
+        return new Page<>(list, total);
     }
 
     @Override

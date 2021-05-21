@@ -2,7 +2,7 @@ package com.net.nxx.controller;
 
 import com.net.nxx.common.exception.ErrorMsg;
 import com.net.nxx.service.FileService;
-import com.net.nxx.vo.ResultVo;
+import com.net.nxx.model.Result;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,19 +37,19 @@ public class FileController {
     private FileService fileService;
 
     @PostMapping("/file")
-    public ResultVo uploadFile(@RequestParam("file") MultipartFile multipartFile) {
+    public Result uploadFile(@RequestParam("file") MultipartFile multipartFile) {
         String uuid = "file" + String.valueOf(System.currentTimeMillis());
         System.out.println("File id" + uuid);
         String fileName = uuid+ multipartFile.getOriginalFilename();
         try {
             if (fileService.uploadFile(multipartFile, fileName)) {
-                return ResultVo.success(baseUrl + "/image?imageName=" + fileName);
+                return Result.success(baseUrl + "/image?imageName=" + fileName);
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
+            return Result.fail(ErrorMsg.SYSTEM_ERROR);
         }
-        return ResultVo.fail(ErrorMsg.FILE_UPLOAD_ERROR);
+        return Result.fail(ErrorMsg.FILE_UPLOAD_ERROR);
     }
 
     @GetMapping("/image")

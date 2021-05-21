@@ -1,7 +1,7 @@
 package com.net.nxx.service;
 
 import com.net.nxx.model.NxxIdleItem;
-import com.net.nxx.vo.PageVo;
+import com.net.nxx.model.Page;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public interface IdleItemService {
      * @param nums
      * @return
      */
-    PageVo<NxxIdleItem> findIdleItem(String findValue, int page, int nums);
+    Page<NxxIdleItem> findIdleItem(String findValue, int page, int nums);
 
     /**
      * 按分类获取闲置，分页器
@@ -47,7 +47,7 @@ public interface IdleItemService {
      * @param nums
      * @return
      */
-    PageVo<NxxIdleItem> findIdleItemByLable(int idleLabel, int page, int nums);
+    Page<NxxIdleItem> findIdleItemByLable(int idleLabel, int page, int nums);
 
     /**
      * 更新闲置的状态信息
@@ -56,5 +56,5 @@ public interface IdleItemService {
      */
     boolean updateIdleItem(NxxIdleItem idleItemModel);
 
-    PageVo<NxxIdleItem> adminGetIdleList(int status, int page, int nums) ;
+    Page<NxxIdleItem> adminGetIdleList(int status, int page, int nums) ;
 }

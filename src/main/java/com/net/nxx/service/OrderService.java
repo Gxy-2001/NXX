@@ -1,7 +1,7 @@
 package com.net.nxx.service;
 
 import com.net.nxx.model.NxxOrder;
-import com.net.nxx.vo.PageVo;
+import com.net.nxx.model.Page;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public interface OrderService {
      */
     List<NxxOrder> getMySoldIdle(Long userId);
 
-    PageVo<NxxOrder> getAllOrder(int page, int nums);
+    Page<NxxOrder> getAllOrder(int page, int nums);
 
     boolean deleteOrder(long id);
 }

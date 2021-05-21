@@ -3,7 +3,7 @@ package com.net.nxx.controller;
 import com.net.nxx.common.exception.ErrorMsg;
 import com.net.nxx.model.NxxCarousel;
 import com.net.nxx.service.CarouselService;
-import com.net.nxx.vo.ResultVo;
+import com.net.nxx.model.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -30,11 +30,11 @@ public class CarouselController {
      */
     @ApiOperation("获取轮播图列表")
     @GetMapping(value = {"/carousels/list",})
-    public ResultVo list(HttpSession session,
-                         @RequestParam(value = "page", required = false) Integer page,
-                         @RequestParam(value = "nums", required = false) Integer nums) {
+    public Result list(HttpSession session,
+                       @RequestParam(value = "page", required = false) Integer page,
+                       @RequestParam(value = "nums", required = false) Integer nums) {
         if (session.getAttribute("admin") == null) {
-            return ResultVo.fail(ErrorMsg.COOKIE_ERROR);
+            return Result.fail(ErrorMsg.COOKIE_ERROR);
         }
         int p = 1;
         int n = 8;
@@ -44,7 +44,7 @@ public class CarouselController {
         if (null != nums) {
             n = nums > 0 ? nums : 8;
         }
-        return ResultVo.success(carouselService.getCarouselPage(p, n));
+        return Result.success(carouselService.getCarouselPage(p, n));
     }
 
     /**
@@ -52,9 +52,9 @@ public class CarouselController {
      */
     @ApiOperation("前端首页获取轮播图")
     @GetMapping(value = "/carousels/get")
-    public ResultVo get(HttpSession session,
-                         @RequestParam(value = "page", required = false) Integer page,
-                         @RequestParam(value = "nums", required = false) Integer nums) {
+    public Result get(HttpSession session,
+                      @RequestParam(value = "page", required = false) Integer page,
+                      @RequestParam(value = "nums", required = false) Integer nums) {
         int p = 1;
         int n = 8;
         if (null != page) {
@@ -63,7 +63,7 @@ public class CarouselController {
         if (null != nums) {
             n = nums > 0 ? nums : 8;
         }
-        return ResultVo.success(carouselService.getCarouselPage(p, n));
+        return Result.success(carouselService.getCarouselPage(p, n));
     }
 
     /**
@@ -71,17 +71,17 @@ public class CarouselController {
      */
     @ApiOperation("添加轮播图")
     @PostMapping(value = "/carousels/save")
-    public ResultVo save(HttpSession session,
-                         @RequestBody NxxCarousel carouselModel) {
+    public Result save(HttpSession session,
+                       @RequestBody NxxCarousel carouselModel) {
         if (session.getAttribute("admin") == null) {
-            return ResultVo.fail(ErrorMsg.COOKIE_ERROR);
+            return Result.fail(ErrorMsg.COOKIE_ERROR);
         }
         carouselModel.setCreateTime(new Date());
         carouselModel.setUpdateTime(new Date());
         if (carouselService.add(carouselModel) != null) {
-            return ResultVo.success();
+            return Result.success();
         }
-        return ResultVo.fail(ErrorMsg.PARAM_ERROR);
+        return Result.fail(ErrorMsg.PARAM_ERROR);
     }
 
 
@@ -90,16 +90,16 @@ public class CarouselController {
      */
     @ApiOperation("修改轮播图")
     @PostMapping(value = "/carousels/update")
-    public ResultVo update(HttpSession session,
-                           @RequestBody NxxCarousel carouselModel) {
+    public Result update(HttpSession session,
+                         @RequestBody NxxCarousel carouselModel) {
         if (session.getAttribute("admin") == null) {
-            return ResultVo.fail(ErrorMsg.COOKIE_ERROR);
+            return Result.fail(ErrorMsg.COOKIE_ERROR);
         }
         carouselModel.setUpdateTime(new Date());
         if (carouselService.updateCarouselInfo(carouselModel)) {
-            return ResultVo.success();
+            return Result.success();
         }
-        return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
+        return Result.fail(ErrorMsg.SYSTEM_ERROR);
     }
 
     /**
@@ -107,16 +107,16 @@ public class CarouselController {
      */
     @ApiOperation("查看某轮播图详情")
     @GetMapping("/carousels/info")
-    public ResultVo info(HttpSession session,
-                         @RequestParam("carouselId") @NotEmpty @NotNull Integer carouselId) {
+    public Result info(HttpSession session,
+                       @RequestParam("carouselId") @NotEmpty @NotNull Integer carouselId) {
         if (session.getAttribute("admin") == null) {
-            return ResultVo.fail(ErrorMsg.COOKIE_ERROR);
+            return Result.fail(ErrorMsg.COOKIE_ERROR);
         }
         NxxCarousel carousel = carouselService.getCarouselById(carouselId);
         if (carousel == null) {
-            return ResultVo.fail(ErrorMsg.DATA_NOT_EXIST);
+            return Result.fail(ErrorMsg.DATA_NOT_EXIST);
         }
-        return ResultVo.success(carousel);
+        return Result.success(carousel);
     }
 
 
@@ -125,15 +125,15 @@ public class CarouselController {
      */
     @ApiOperation("删除轮播图")
     @GetMapping(value = "/carousels/delete")
-    public ResultVo delete(HttpSession session,
-                           @RequestParam("carouselId") @NotNull @NotEmpty Integer carouselId) {
+    public Result delete(HttpSession session,
+                         @RequestParam("carouselId") @NotNull @NotEmpty Integer carouselId) {
         if (session.getAttribute("admin") == null) {
-            return ResultVo.fail(ErrorMsg.COOKIE_ERROR);
+            return Result.fail(ErrorMsg.COOKIE_ERROR);
         }
         if (carouselService.deleteCarousel(carouselId)) {
-            return ResultVo.success();
+            return Result.success();
         }
-        return ResultVo.fail(ErrorMsg.SYSTEM_ERROR);
+        return Result.fail(ErrorMsg.SYSTEM_ERROR);
     }
 
 
