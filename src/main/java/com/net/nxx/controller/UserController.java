@@ -4,7 +4,7 @@ package com.net.nxx.controller;
 import com.net.nxx.common.exception.ErrorMsg;
 import com.net.nxx.model.NxxUser;
 import com.net.nxx.service.UserService;
-import com.net.nxx.model.Result;
+import com.net.nxx.dto.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

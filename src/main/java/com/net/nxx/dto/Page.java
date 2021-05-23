@@ -1,4 +1,4 @@
-package com.net.nxx.model;
+package com.net.nxx.dto;
 
 import java.util.List;
 

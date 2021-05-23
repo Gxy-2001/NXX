@@ -3,7 +3,7 @@ package com.net.nxx.controller;
 import com.net.nxx.common.exception.ErrorMsg;
 import com.net.nxx.model.NxxIdleItem;
 import com.net.nxx.service.IdleItemService;
-import com.net.nxx.model.Result;
+import com.net.nxx.dto.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

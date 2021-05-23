@@ -5,7 +5,7 @@ import com.net.nxx.dao.NxxOrderDao;
 import com.net.nxx.model.NxxIdleItem;
 import com.net.nxx.model.NxxOrder;
 import com.net.nxx.service.OrderService;
-import com.net.nxx.model.Page;
+import com.net.nxx.dto.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;

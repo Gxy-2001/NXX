@@ -3,7 +3,7 @@ package com.net.nxx.service.impl;
 import com.net.nxx.dao.NxxUserDao;
 import com.net.nxx.model.NxxUser;
 import com.net.nxx.service.UserService;
-import com.net.nxx.model.Page;
+import com.net.nxx.dto.Page;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

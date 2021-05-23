@@ -1,7 +1,7 @@
 package com.net.nxx.service;
 
 import com.net.nxx.model.NxxAdmin;
-import com.net.nxx.model.Page;
+import com.net.nxx.dto.Page;
 
 
 /**

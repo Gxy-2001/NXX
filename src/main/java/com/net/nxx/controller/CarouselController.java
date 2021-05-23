@@ -3,7 +3,7 @@ package com.net.nxx.controller;
 import com.net.nxx.common.exception.ErrorMsg;
 import com.net.nxx.model.NxxCarousel;
 import com.net.nxx.service.CarouselService;
-import com.net.nxx.model.Result;
+import com.net.nxx.dto.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;

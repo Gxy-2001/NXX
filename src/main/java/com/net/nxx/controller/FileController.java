@@ -2,7 +2,7 @@ package com.net.nxx.controller;
 
 import com.net.nxx.common.exception.ErrorMsg;
 import com.net.nxx.service.FileService;
-import com.net.nxx.model.Result;
+import com.net.nxx.dto.Result;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.GetMapping;

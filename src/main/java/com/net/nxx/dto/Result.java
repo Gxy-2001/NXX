@@ -1,4 +1,4 @@
-package com.net.nxx.model;
+package com.net.nxx.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.net.nxx.common.exception.ErrorMsg;
