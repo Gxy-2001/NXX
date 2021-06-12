@@ -5,7 +5,7 @@ import com.net.nxx.dao.NxxUserDao;
 import com.net.nxx.model.NxxIdleItem;
 import com.net.nxx.model.NxxUser;
 import com.net.nxx.service.IdleItemService;
-import com.net.nxx.dto.Page;
+import com.net.nxx.VO.Page;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;

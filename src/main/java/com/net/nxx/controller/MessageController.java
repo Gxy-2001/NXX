@@ -3,7 +3,7 @@ package com.net.nxx.controller;
 import com.net.nxx.common.exception.ErrorMsg;
 import com.net.nxx.model.NxxMessage;
 import com.net.nxx.service.MessageService;
-import com.net.nxx.dto.Result;
+import com.net.nxx.VO.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.net.nxx.service;
 
 import com.net.nxx.model.NxxUser;
-import com.net.nxx.dto.Page;
+import com.net.nxx.VO.Page;
 
 /**
  * @program: NXX

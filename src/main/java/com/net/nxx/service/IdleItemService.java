@@ -1,7 +1,7 @@
 package com.net.nxx.service;
 
 import com.net.nxx.model.NxxIdleItem;
-import com.net.nxx.dto.Page;
+import com.net.nxx.VO.Page;
 
 import java.util.List;
 

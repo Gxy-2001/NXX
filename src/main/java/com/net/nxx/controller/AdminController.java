@@ -8,7 +8,7 @@ import com.net.nxx.service.AdminService;
 import com.net.nxx.service.IdleItemService;
 import com.net.nxx.service.UserService;
 import com.net.nxx.service.OrderService;
-import com.net.nxx.dto.Result;
+import com.net.nxx.VO.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;

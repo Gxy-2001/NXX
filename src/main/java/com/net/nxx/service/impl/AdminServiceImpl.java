@@ -3,7 +3,7 @@ package com.net.nxx.service.impl;
 import com.net.nxx.dao.NxxAdminDao;
 import com.net.nxx.model.NxxAdmin;
 import com.net.nxx.service.AdminService;
-import com.net.nxx.dto.Page;
+import com.net.nxx.VO.Page;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
