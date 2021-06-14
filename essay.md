@@ -111,6 +111,31 @@ Github仓库。
 ##### 前端
 
 ```
+├─.idea
+│  └─inspectionProfiles
+├─dist
+│  ├─css
+│  ├─fonts
+│  ├─img
+│  └─js
+├─node_modules 属于它的分支全部略去)
+├─public
+└─src
+    ├─api
+    ├─assets
+    │  ├─ads
+    │  ├─Background
+    │  ├─Carousel
+    │  └─style
+    │      └─purple
+    │          └─theme
+    │              └─fonts
+    ├─components
+    │  ├─common
+    │  └─page
+    ├─router
+    └─utils
+
 ```
 
 
@@ -147,10 +172,33 @@ Github仓库。
 #### 2.5 运行步骤
 
 ##### 前端
+我们的项目没有部署在阿里云等服务器上，为了便于本地部署、运行，推荐安装jetbrains的IDEA（我们用的也是IDEA）。为使用npm，还需要安装nodejs。
 
+1.安装IDEA和nodejs。
+http://nodejs.cn/ node.js官网;
+https://www.jetbrains.com/ jetBrains官网
 
+2.用idea打开Nxx_web文件夹，在idea的Terminal里通过npm install安装各种依赖
 
+3.在idea的Terminal里通过npm run serve启动
 
+##### 补充
+2.1 在idea的terminal输入npm install ，以安装各种依赖
+
+因为防火墙，npm下载速度可能不快。这时可以使用npm的淘宝镜像，但最好不要用cnpm，cnpm的安装路径与npm可能不太一样。
+  可以单次使用淘宝镜像：
+​	npm install --registry=https://registry.npm.taobao.org 
+  
+  也可以通过下面的命令，将npm的淘宝镜像设置为默认下载源，再npm install
+​	$ npm config set registry https://registry.npm.taobao.org
+	  ·恢复官方默认设置：npm config set registry https://registry.npmjs.org
+    ·检测镜像是否安装成功 npm config get registry
+
+2.2 输入npm run serve启动前端
+  启动成功，会显示
+  App running at:  
+    - Local:   http://localhost:8080/ 
+  即项目在本地部署的地址，点击打开，即可与系统交互。
 
 ##### 后端
 
