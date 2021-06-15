@@ -171,16 +171,22 @@ Github仓库。
 
 #### 2.5 运行步骤
 
+
+##### 后端
+
+1. 安装 java8，Elasticsearch7.9.3，maven等开发环境
+2. 执行`.sql`目录下的sql文件，修改配置文件中的数据库密码
+3. 开启Elasticsearch，创建名为`item`的索引
+4. 开启logstash，安装`logstash-input-jdbc`插件，在`bin`目录下执行`\logstash  -f  ./logstash.conf`，如有问题请见`.ES`目录下的readme
+5. `import maven`
+6. 后端调试页面：[Swagger](http://localhost:8090/swagger-ui.html ) 或者  [有皮肤的Swagger](http://localhost:8090/doc.html )，可以查看接口
+
 ##### 前端
-我们的项目没有部署在阿里云等服务器上，为了便于本地部署、运行，推荐安装jetbrains的IDEA（我们用的也是IDEA）。为使用npm，还需要安装nodejs。
+为了便于本地部署、运行，推荐安装jetbrains的IDEA（我们用的也是IDEA）。为使用npm，还需要安装nodejs。然后在`Nxx_Web`目录下输入如下两条命令：
 
-1.安装IDEA和nodejs。
-http://nodejs.cn/ node.js官网;
-https://www.jetbrains.com/ jetBrains官网
+2. `npm install`
 
-2.用idea打开Nxx_web文件夹，在idea的Terminal里通过npm install安装各种依赖
-
-3.在idea的Terminal里通过npm run serve启动
+3. `npm run serve`
 
 ##### 补充
 2.1 在idea的terminal输入npm install ，以安装各种依赖
@@ -188,7 +194,7 @@ https://www.jetbrains.com/ jetBrains官网
 因为防火墙，npm下载速度可能不快。这时可以使用npm的淘宝镜像，但最好不要用cnpm，cnpm的安装路径与npm可能不太一样。
   可以单次使用淘宝镜像：
 ​	npm install --registry=https://registry.npm.taobao.org 
-  
+
   也可以通过下面的命令，将npm的淘宝镜像设置为默认下载源，再npm install
 ​	$ npm config set registry https://registry.npm.taobao.org
 	  ·恢复官方默认设置：npm config set registry https://registry.npmjs.org
@@ -199,15 +205,6 @@ https://www.jetbrains.com/ jetBrains官网
   App running at:  
     - Local:   http://localhost:8080/ 
   即项目在本地部署的地址，点击打开，即可与系统交互。
-
-##### 后端
-
-1. 安装 java8，Elasticsearch7.9.3，maven等开发环境
-2. 执行`.sql`目录下的sql文件，修改配置文件中的数据库密码
-3. 开启Elasticsearch，创建名为`item`的索引
-4. 开启logstash，安装`logstash-input-jdbc`插件，在`bin`目录下执行`\logstash  -f  ./logstash.conf`，如有问题请见`.ES`目录下的readme
-5. `import maven`
-6. 后端调试页面：[Swagger](http://localhost:8090/swagger-ui.html ) 或者  [有皮肤的Swagger](http://localhost:8090/doc.html )，可以查看接口
 
 
 
