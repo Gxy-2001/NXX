@@ -1,5 +1,7 @@
 package com.net.nxx;
 
+import javax.xml.crypto.Data;
+
 /**
  * @program: nxx
  * @description:
@@ -8,6 +10,6 @@ package com.net.nxx;
  */
 public class test {
     public static void main(String[] args) {
-
+        System.out.println();
     }
 }
