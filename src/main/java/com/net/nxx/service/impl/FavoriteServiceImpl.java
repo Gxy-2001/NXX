@@ -57,6 +57,9 @@ public class FavoriteServiceImpl implements FavoriteService {
      */
     @Override
     public Integer isFavorite(Long userId, Long idleId) {
+        if(userId == null || userId == 0){
+            return 0;
+        }
         return nxxFavoriteDao.checkFavorite(userId, idleId);
     }
 

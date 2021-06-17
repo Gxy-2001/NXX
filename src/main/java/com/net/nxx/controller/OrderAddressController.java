@@ -27,14 +27,16 @@ public class OrderAddressController {
 
     @ApiOperation("订单添加地址")
     @PostMapping("/add")
-    public Result addOrderAddress(@CookieValue("UserId") String UserId,
+    public Result addOrderAddress(@CookieValue("UserId")
+                                  @NotNull(message = "登陆异常") @NotEmpty(message = "登录异常") String UserId,
                                   @RequestBody NxxOrderAddress nxxOrderAddress) {
         return Result.success(orderAddressService.addOrderAddress(nxxOrderAddress));
     }
 
     @ApiOperation("订单更新地址")
     @PostMapping("/update")
-    public Result updateOrderAddress(@CookieValue("UserId") String UserId,
+    public Result updateOrderAddress(@CookieValue("UserId")
+                                     @NotNull(message = "登陆异常") @NotEmpty(message = "登录异常") String UserId,
                                      @RequestBody NxxOrderAddress nxxOrderAddress) {
         if (orderAddressService.updateOrderAddress(nxxOrderAddress)) {
             return Result.success(nxxOrderAddress);
@@ -44,7 +46,8 @@ public class OrderAddressController {
 
     @ApiOperation("订单地址表")
     @GetMapping("/info")
-    public Result getOrderAddress(@CookieValue("UserId") String UserId,
+    public Result getOrderAddress(@CookieValue("UserId")
+                                  @NotNull(message = "登陆异常") @NotEmpty(message = "登录异常") String UserId,
                                   @RequestParam Long orderId) {
         return Result.success(orderAddressService.getOrderAddress(orderId));
     }

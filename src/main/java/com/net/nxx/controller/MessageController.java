@@ -28,7 +28,8 @@ public class MessageController {
 
     @ApiOperation("发送留言")
     @PostMapping("/send")
-    public Result sendMessage(@CookieValue("UserId") String UserId,
+    public Result sendMessage(@CookieValue("UserId")
+                              @NotNull(message = "登陆异常") @NotEmpty(message = "登录异常") String UserId,
                               @RequestBody NxxMessage nxxMessage) {
         nxxMessage.setUserId(Long.valueOf(UserId));
         nxxMessage.setCreateTime(new Date());
@@ -52,13 +53,15 @@ public class MessageController {
 
     @ApiOperation("查看一个用户的所有留言")
     @GetMapping("/my")
-    public Result getAllMyMessage(@CookieValue("UserId") String UserId) {
+    public Result getAllMyMessage(@CookieValue("UserId")
+                                  @NotNull(message = "登陆异常") @NotEmpty(message = "登录异常") String UserId) {
         return Result.success(messageService.getAllMessage(Long.valueOf(UserId)));
     }
 
     @ApiOperation("删除一条留言")
     @GetMapping("/delete")
-    public Result deleteMessage(@CookieValue("UserId") String UserId,
+    public Result deleteMessage(@CookieValue("UserId")
+                                @NotNull(message = "登陆异常") @NotEmpty(message = "登录异常") String UserId,
                                 @RequestParam Long id) {
         if (messageService.deleteMessage(id)) {
             return Result.success();

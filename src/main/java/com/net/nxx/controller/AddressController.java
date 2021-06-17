@@ -28,7 +28,7 @@ public class AddressController {
     @ApiOperation("获取地址")
     @GetMapping("/info")
     public Result getAddress(@CookieValue("UserId")
-                             String UserId,
+                             @NotNull(message = "登陆异常") @NotEmpty(message = "登录异常") String UserId,
                              @RequestParam(value = "id", required = false) Long id) {
         if (null == id) {
             return Result.success(addressService.getAddressByUser(Long.valueOf(UserId)));
@@ -40,7 +40,7 @@ public class AddressController {
     @ApiOperation("添加地址")
     @PostMapping("/add")
     public Result addAddress(@CookieValue("UserId")
-                             String UserId,
+                             @NotNull(message = "登陆异常") @NotEmpty(message = "登录异常") String UserId,
                              @RequestBody NxxAddress addressModel) {
         addressModel.setUserId(Long.valueOf(UserId));
         if (addressService.addAddress(addressModel)) {
@@ -51,7 +51,8 @@ public class AddressController {
 
     @ApiOperation("更新地址")
     @PostMapping("/update")
-    public Result updateAddress(@CookieValue("UserId") String UserId,
+    public Result updateAddress(@CookieValue("UserId")
+                                @NotNull(message = "登陆异常") @NotEmpty(message = "登录异常") String UserId,
                                 @RequestBody NxxAddress addressModel) {
         addressModel.setUserId(Long.valueOf(UserId));
         if (addressService.updateAddress(addressModel)) {
@@ -63,7 +64,7 @@ public class AddressController {
     @ApiOperation("删除地址")
     @PostMapping("/delete")
     public Result deleteAddress(@CookieValue("UserId")
-                                String UserId,
+                                @NotNull(message = "登陆异常") @NotEmpty(message = "登录异常") String UserId,
                                 @RequestBody NxxAddress addressModel) {
         addressModel.setUserId(Long.valueOf(UserId));
         if (addressService.deleteAddress(addressModel)) {

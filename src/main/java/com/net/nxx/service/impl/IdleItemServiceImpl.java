@@ -147,7 +147,7 @@ public class IdleItemServiceImpl implements IdleItemService {
         List<NxxIdleItem> reallist = new LinkedList<>();
 
         for (NxxIdleItem i : list) {
-            if (i.getIdleStatus() == ((byte) 1)) {
+            if (i.getIdleStatus() == ( 1)) {
 //                DeleteRequest delete = new DeleteRequest("item", String.valueOf(i.getId()));
 //                try {
 //                    restHighLevelClient.delete(delete, RequestOptions.DEFAULT);

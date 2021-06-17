@@ -28,7 +28,8 @@ public class OrderController {
 
     @ApiOperation("添加订单")
     @PostMapping("/add")
-    public Result addOrder(@CookieValue("UserId") String UserId,
+    public Result addOrder(@CookieValue("UserId")
+                           @NotNull(message = "登陆异常") @NotEmpty(message = "登录异常") String UserId,
                            @RequestBody NxxOrder nxxOrder) {
         nxxOrder.setOrderNumber(String.valueOf(System.currentTimeMillis()));
         nxxOrder.setCreateTime(new Date());
@@ -44,7 +45,8 @@ public class OrderController {
 
     @ApiOperation("获取订单信息")
     @GetMapping("/info")
-    public Result getOrderInfo(@CookieValue("UserId") String UserId,
+    public Result getOrderInfo(@CookieValue("UserId")
+                               @NotNull(message = "登陆异常") @NotEmpty(message = "登录异常") String UserId,
                                @RequestParam Long id) {
         NxxOrder nxxOrder = orderService.getOrder(id);
         if (nxxOrder.getUserId().equals(Long.valueOf(UserId)) ||
@@ -56,7 +58,8 @@ public class OrderController {
 
     @ApiOperation("更新订单信息")
     @PostMapping("/update")
-    public Result updateOrder(@CookieValue("UserId") String UserId,
+    public Result updateOrder(@CookieValue("UserId")
+                              @NotNull(message = "登陆异常") @NotEmpty(message = "登录异常") String UserId,
                               @RequestBody NxxOrder nxxOrder) {
         if (nxxOrder.getPaymentStatus() != null && nxxOrder.getPaymentStatus().equals((byte) 1)) {
             nxxOrder.setPaymentTime(new Date());
@@ -69,13 +72,15 @@ public class OrderController {
 
     @ApiOperation("我的订单")
     @GetMapping("/my")
-    public Result getMyOrder(@CookieValue("UserId") String UserId) {
+    public Result getMyOrder(@CookieValue("UserId")
+                             @NotNull(message = "登陆异常") @NotEmpty(message = "登录异常") String UserId) {
         return Result.success(orderService.getMyOrder(Long.valueOf(UserId)));
     }
 
     @ApiOperation("我卖出的订单")
     @GetMapping("/my-sold")
-    public Result getMySoldIdle(@CookieValue("UserId") String UserId) {
+    public Result getMySoldIdle(@CookieValue("UserId")
+                                @NotNull(message = "登陆异常") @NotEmpty(message = "登录异常") String UserId) {
         return Result.success(orderService.getMySoldIdle(Long.valueOf(UserId)));
     }
 }

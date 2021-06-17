@@ -93,7 +93,7 @@ public class ElasticsearchTest {
     //删除文档信息
     @Test
     public void deleteDocument() throws IOException {
-        for (int i = 54; i <= 56; ++i) {
+        for (int i = 54; i <= 64; ++i) {
             DeleteRequest java_index = new DeleteRequest("item", "" + i);
             DeleteResponse delete = restHighLevelClient.delete(java_index, RequestOptions.DEFAULT);
             System.out.println(delete.status());  //查看删除状态

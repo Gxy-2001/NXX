@@ -54,7 +54,8 @@ public class IdleItemController {
 
     @ApiOperation("查询用户发布的所有闲置")
     @GetMapping("all")
-    public Result getAllIdleItem(@CookieValue("UserId") String UserId) {
+    public Result getAllIdleItem(@CookieValue("UserId")
+                                 @NotNull(message = "登陆异常") @NotEmpty(message = "登录异常") String UserId) {
         return Result.success(idleItemService.getAllIdelItem(Long.valueOf(UserId)));
     }
 
@@ -94,8 +95,7 @@ public class IdleItemController {
     @ApiOperation("更新闲置信息")
     @PostMapping("update")
     public Result updateIdleItem(@CookieValue("UserId")
-                                 @NotNull(message = "登录异常 请重新登录")
-                                 @NotEmpty(message = "登录异常 请重新登录") String UserId,
+                                 @NotNull(message = "登陆异常") @NotEmpty(message = "登录异常") String UserId,
                                  @RequestBody NxxIdleItem nxxIdleItem) {
         nxxIdleItem.setUserId(Long.valueOf(UserId));
         if (idleItemService.updateIdleItem(nxxIdleItem)) {
