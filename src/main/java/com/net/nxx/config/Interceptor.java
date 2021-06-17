@@ -24,7 +24,8 @@ public class Interceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-        System.out.println(httpServletRequest.getRequestURI() + httpServletRequest.getQueryString() + "，耗时" + (System.currentTimeMillis() - start) + "ms");
+        //debug
+        //System.out.println(httpServletRequest.getRequestURI() + httpServletRequest.getQueryString() + "，耗时" + (System.currentTimeMillis() - start) + "ms");
     }
 
     @Override

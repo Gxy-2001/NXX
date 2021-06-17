@@ -68,7 +68,7 @@ public class IdleItemServiceImpl implements IdleItemService {
     }
 
     /**
-     * 查询闲置信息，同时查出发布者的信息
+     * 查询闲置信息
      *
      * @param id
      * @return
@@ -84,7 +84,6 @@ public class IdleItemServiceImpl implements IdleItemService {
 
     /**
      * 查询用户发布的所有闲置
-     * user_id建索引
      *
      * @param userId
      * @return
@@ -95,8 +94,7 @@ public class IdleItemServiceImpl implements IdleItemService {
     }
 
     /**
-     * 搜索，分页
-     * 同时查出闲置发布者的信息
+     * 搜索
      *
      * @param findValue
      * @param page
@@ -105,6 +103,9 @@ public class IdleItemServiceImpl implements IdleItemService {
      */
     @Override
     public Page<NxxIdleItem> findIdleItem(String findValue, int page, int nums) {
+        if(null==findValue){
+            findValue = "";
+        }
         findValue = findValue.trim();
         LinkedList<Long> IdList = new LinkedList<>();
         //创建请求对象
@@ -120,7 +121,6 @@ public class IdleItemServiceImpl implements IdleItemService {
             //QueryBuilders.
             searchSourceBuilder.query(query);
         }
-
         java_index.source(searchSourceBuilder);
         //发送请求
         SearchResponse search = null;
@@ -181,8 +181,7 @@ public class IdleItemServiceImpl implements IdleItemService {
     }
 
     /**
-     * 分类查询，分页
-     * 同时查出闲置发布者的信息，代码结构与上面的类似，可封装优化，或改为join查询
+     * 分类查询
      *
      * @param idleLabel
      * @param page
@@ -221,6 +220,13 @@ public class IdleItemServiceImpl implements IdleItemService {
         return idleItemDao.updateByPrimaryKeySelective(idleItemModel) == 1;
     }
 
+    /**
+     *
+     * @param status
+     * @param page
+     * @param nums
+     * @return
+     */
     @Override
     public Page<NxxIdleItem> adminGetIdleList(int status, int page, int nums) {
         List<NxxIdleItem> list = idleItemDao.getIdleItemByStatus(status, (page - 1) * nums, nums);

@@ -22,6 +22,13 @@ public class FileServiceImpl implements FileService {
     @Value("${localPath}")
     private String filePath;
 
+    /**
+     *
+     * @param multipartFile
+     * @param fileName
+     * @return
+     * @throws IOException
+     */
     @Override
     public boolean uploadFile(MultipartFile multipartFile, String fileName) throws IOException {
         File fileDir = new File(filePath);
@@ -31,7 +38,6 @@ public class FileServiceImpl implements FileService {
             }
         }
         System.out.println(fileDir.getAbsolutePath()+ File.separator + fileName);
-
         File file = new File(fileDir.getAbsolutePath() + File.separator + fileName);
         if (file.exists()) {
             if (!file.delete()) {
@@ -40,9 +46,7 @@ public class FileServiceImpl implements FileService {
         }
         if (file.createNewFile()) {
             System.out.println(multipartFile.getName());
-
             System.out.println(multipartFile.getOriginalFilename());
-            InputStream inputStream = multipartFile.getInputStream();
             multipartFile.transferTo(file);
             return true;
         }

@@ -31,7 +31,7 @@ public class OrderAddressServiceImpl implements OrderAddressService {
     }
 
     /**
-     * 更新订单的地址信息，未验证用户身份
+     * 更新订单的地址信息
      *
      * @param NxxOrderAddress
      * @return
@@ -44,7 +44,6 @@ public class OrderAddressServiceImpl implements OrderAddressService {
 
     /**
      * 获取订单的地址信息
-     * orderId建索引
      *
      * @param orderId
      * @return

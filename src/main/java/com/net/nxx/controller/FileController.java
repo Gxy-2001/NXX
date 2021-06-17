@@ -38,9 +38,9 @@ public class FileController {
 
     @PostMapping("/file")
     public Result uploadFile(@RequestParam("file") MultipartFile multipartFile) {
-        String uuid = "file" + String.valueOf(System.currentTimeMillis());
-        System.out.println("File id" + uuid);
-        String fileName = uuid+ multipartFile.getOriginalFilename();
+        String ud = "file" + String.valueOf(System.currentTimeMillis());
+        System.out.println("File id" + ud);
+        String fileName = ud+ multipartFile.getOriginalFilename();
         try {
             if (fileService.uploadFile(multipartFile, fileName)) {
                 return Result.success(baseUrl + "/image?imageName=" + fileName);

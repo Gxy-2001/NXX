@@ -28,47 +28,45 @@ public class AddressController {
     @ApiOperation("获取地址")
     @GetMapping("/info")
     public Result getAddress(@CookieValue("UserId")
-                                @NotNull(message = "登录异常 请重新登录")
-                                @NotEmpty(message = "登录异常 请重新登录") String UserId,
-                             @RequestParam(value = "id",required = false) Long id){
-        if(null==id){
+                             String UserId,
+                             @RequestParam(value = "id", required = false) Long id) {
+        if (null == id) {
             return Result.success(addressService.getAddressByUser(Long.valueOf(UserId)));
-        }else {
-            return Result.success(addressService.getAddressById(id,Long.valueOf(UserId)));
+        } else {
+            return Result.success(addressService.getAddressById(id, Long.valueOf(UserId)));
         }
     }
+
     @ApiOperation("添加地址")
     @PostMapping("/add")
     public Result addAddress(@CookieValue("UserId")
-                               @NotNull(message = "登录异常 请重新登录")
-                               @NotEmpty(message = "登录异常 请重新登录") String UserId,
-                             @RequestBody NxxAddress addressModel){
+                             String UserId,
+                             @RequestBody NxxAddress addressModel) {
         addressModel.setUserId(Long.valueOf(UserId));
-        if(addressService.addAddress(addressModel)){
+        if (addressService.addAddress(addressModel)) {
             return Result.success(addressModel);
         }
         return Result.fail(ErrorMsg.SYSTEM_ERROR);
     }
+
     @ApiOperation("更新地址")
     @PostMapping("/update")
-    public Result updateAddress(@CookieValue("UserId")
-                                  @NotNull(message = "登录异常 请重新登录")
-                                  @NotEmpty(message = "登录异常 请重新登录") String UserId,
-                                @RequestBody NxxAddress addressModel){
+    public Result updateAddress(@CookieValue("UserId") String UserId,
+                                @RequestBody NxxAddress addressModel) {
         addressModel.setUserId(Long.valueOf(UserId));
-        if(addressService.updateAddress(addressModel)){
+        if (addressService.updateAddress(addressModel)) {
             return Result.success();
         }
         return Result.fail(ErrorMsg.SYSTEM_ERROR);
     }
+
     @ApiOperation("删除地址")
     @PostMapping("/delete")
     public Result deleteAddress(@CookieValue("UserId")
-                                  @NotNull(message = "登录异常 请重新登录")
-                                  @NotEmpty(message = "登录异常 请重新登录") String UserId,
-                                @RequestBody NxxAddress addressModel){
+                                String UserId,
+                                @RequestBody NxxAddress addressModel) {
         addressModel.setUserId(Long.valueOf(UserId));
-        if(addressService.deleteAddress(addressModel)){
+        if (addressService.deleteAddress(addressModel)) {
             return Result.success();
         }
         return Result.fail(ErrorMsg.SYSTEM_ERROR);

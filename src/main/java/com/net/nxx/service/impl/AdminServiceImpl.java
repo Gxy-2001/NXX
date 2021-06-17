@@ -42,7 +42,7 @@ public class AdminServiceImpl implements AdminService {
             return null;
         }
         //将密码进行加密操作
-//        String encodePassword = passwordEncoder.encode(Admin.getAdminPassword());
+//        String encodePassword = encode(Admin.getAdminPassword());
 //        Admin.setAdminPassword(encodePassword);
         adminDao.insert(Admin);
         return Admin;

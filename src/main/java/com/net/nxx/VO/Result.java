@@ -3,6 +3,7 @@ package com.net.nxx.VO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.net.nxx.common.exception.ErrorMsg;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @program: NXX
@@ -12,20 +13,20 @@ import lombok.Data;
  */
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @Data
+@NoArgsConstructor
 public class Result<T> {
 
     private Integer status_code;
     private String msg;
     private T data;
 
-    //直接返回成功状态码
     public static Result success() {
         Result result = new Result();
         result.setStatus_code(1);
         return result;
     }
 
-    //返回成功状态码的同时返回对象
+
     public static <T> Result success(T data) {
         Result<T> result = new Result<>();
         result.setStatus_code(1);
@@ -33,7 +34,7 @@ public class Result<T> {
         return result;
     }
 
-    //直接返回错误状态码和错误信息
+
     public static Result fail(ErrorMsg errorMsg) {
         Result result = new Result();
         result.setStatus_code(0);
@@ -41,7 +42,7 @@ public class Result<T> {
         return result;
     }
 
-    //返回错误状态码和错误信息的同时返回错误对象
+
     public static <T> Result fail(ErrorMsg errorMsg, T data) {
         Result<T> result = new Result<>();
         result.setStatus_code(0);
@@ -57,6 +58,4 @@ public class Result<T> {
         this.data = data;
     }
 
-    public Result() {
-    }
 }

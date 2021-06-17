@@ -51,7 +51,7 @@ public class UserController {
     }
 
     /**
-     * 登录，不安全，可伪造id，后期改进
+     * 登录
      *
      * @param accountNumber
      * @param userPassword
@@ -59,7 +59,6 @@ public class UserController {
      * @return
      */
     @ApiOperation("登录")
-    //@RequestMapping("login")
     @GetMapping("login")
     public Result login(@RequestParam("accountNumber") @NotEmpty @NotNull String accountNumber,
                         @RequestParam("userPassword") @NotEmpty @NotNull String userPassword,
@@ -73,7 +72,6 @@ public class UserController {
             return Result.fail(ErrorMsg.ACCOUNT_Ban);
         }
         Cookie cookie = new Cookie("UserId", String.valueOf(userModel.getId()));
-//        cookie.setMaxAge(60 * 60 * 24 * 30);
         cookie.setPath("/");
         cookie.setHttpOnly(false);
         response.addCookie(cookie);
@@ -89,11 +87,9 @@ public class UserController {
      * @return
      */
     @ApiOperation("退出登录")
-    //@RequestMapping("logout")
     @GetMapping("logout")
     public Result logout(@CookieValue("UserId")
-                           @NotNull(message = "登录异常 请重新登录")
-                           @NotEmpty(message = "登录异常 请重新登录") String UserId, HttpServletResponse response) {
+                         String UserId, HttpServletResponse response) {
         Cookie cookie = new Cookie("UserId", UserId);
         cookie.setMaxAge(0);
         cookie.setPath("/");
@@ -111,9 +107,7 @@ public class UserController {
      */
     @ApiOperation("获取用户信息")
     @GetMapping("info")
-    public Result getOneUser(@CookieValue("UserId") @NotNull(message = "登录异常 请重新登录")
-                               @NotEmpty(message = "登录异常 请重新登录")
-                                       String id) {
+    public Result getOneUser(@CookieValue("UserId")String id) {
         return Result.success(userService.getUser(Long.valueOf(id)));
     }
 
@@ -126,9 +120,7 @@ public class UserController {
      */
     @ApiOperation("修改用户信息")
     @PostMapping("/info")
-    public Result updateUserPublicInfo(@CookieValue("UserId") @NotNull(message = "登录异常 请重新登录")
-                                         @NotEmpty(message = "登录异常 请重新登录")
-                                                 String id, @RequestBody NxxUser userModel) {
+    public Result updateUserPublicInfo(@CookieValue("UserId") String id, @RequestBody NxxUser userModel) {
         userModel.setId(Long.valueOf(id));
         if (userService.updateUserInfo(userModel)) {
             return Result.success();
@@ -147,8 +139,7 @@ public class UserController {
      */
     @ApiOperation("修改密码")
     @GetMapping("/password")
-    public Result updateUserPassword(@CookieValue("UserId") @NotNull(message = "登录异常 请重新登录")
-                                       @NotEmpty(message = "登录异常 请重新登录") String id,
+    public Result updateUserPassword(@CookieValue("UserId") String id,
                                      @RequestParam("oldPassword") @NotEmpty @NotNull String oldPassword,
                                      @RequestParam("newPassword") @NotEmpty @NotNull String newPassword) {
         if (userService.updatePassword(newPassword, oldPassword, Long.valueOf(id))) {

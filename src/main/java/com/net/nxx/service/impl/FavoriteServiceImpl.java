@@ -25,6 +25,7 @@ public class FavoriteServiceImpl implements FavoriteService {
     private NxxFavoriteDao nxxFavoriteDao;
     @Resource
     private NxxIdleItemDao idleItemDao;
+
     /**
      * 新增收藏
      *
@@ -49,7 +50,6 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     /**
      * 判断用户是否收藏某个闲置
-     * user_id建索引
      *
      * @param userId
      * @param idleId
@@ -62,7 +62,6 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     /**
      * 查询一个用户的所有收藏
-     * 通过where in查询关联的闲置信息
      *
      * @param userId
      * @return

@@ -29,9 +29,7 @@ public class FavoriteController {
 
     @ApiOperation("添加收藏")
     @PostMapping("/add")
-    public Result addFavorite(@CookieValue("UserId")
-                                @NotNull(message = "登录异常 请重新登录")
-                                @NotEmpty(message = "登录异常 请重新登录") String UserId,
+    public Result addFavorite(@CookieValue("UserId") String UserId,
                               @RequestBody NxxFavorite nxxFavorite) {
         nxxFavorite.setUserId(Long.valueOf(UserId));
         nxxFavorite.setCreateTime(new Date());
@@ -43,9 +41,7 @@ public class FavoriteController {
 
     @ApiOperation("删除收藏")
     @GetMapping("/delete")
-    public Result deleteFavorite(@CookieValue("UserId")
-                                   @NotNull(message = "登录异常 请重新登录")
-                                   @NotEmpty(message = "登录异常 请重新登录") String UserId,
+    public Result deleteFavorite(@CookieValue("UserId") String UserId,
                                  @RequestParam Long id) {
         if (favoriteService.deleteFavorite(id)) {
             return Result.success();
@@ -55,18 +51,14 @@ public class FavoriteController {
 
     @ApiOperation("检查收藏")
     @GetMapping("/check")
-    public Result checkFavorite(@CookieValue("UserId")
-                                  @NotNull(message = "登录异常 请重新登录")
-                                  @NotEmpty(message = "登录异常 请重新登录") String UserId,
+    public Result checkFavorite(@CookieValue("UserId") String UserId,
                                 @RequestParam Long idleId) {
         return Result.success(favoriteService.isFavorite(Long.valueOf(UserId), idleId));
     }
 
     @ApiOperation("我的收藏")
     @GetMapping("/my")
-    public Result getMyFavorite(@CookieValue("UserId")
-                                  @NotNull(message = "登录异常 请重新登录")
-                                  @NotEmpty(message = "登录异常 请重新登录") String UserId) {
+    public Result getMyFavorite(@CookieValue("UserId") String UserId) {
         return Result.success(favoriteService.getAllFavorite(Long.valueOf(UserId)));
     }
 

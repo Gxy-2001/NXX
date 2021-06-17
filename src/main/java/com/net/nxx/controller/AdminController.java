@@ -42,8 +42,8 @@ public class AdminController {
 
     @ApiOperation("登录")
     @GetMapping("login")
-    public Result login(@RequestParam("accountNumber") @NotNull @NotEmpty String accountNumber,
-                        @RequestParam("adminPassword") @NotNull @NotEmpty String adminPassword,
+    public Result login(@RequestParam("accountNumber") String accountNumber,
+                        @RequestParam("adminPassword") String adminPassword,
                         HttpSession session) {
         NxxAdmin adminModel = adminService.login(accountNumber, adminPassword);
         if (null == adminModel) {
@@ -65,9 +65,6 @@ public class AdminController {
     public Result getAdminList(HttpSession session,
                                @RequestParam(value = "page", required = false) Integer page,
                                @RequestParam(value = "nums", required = false) Integer nums) {
-        if (session.getAttribute("admin") == null) {
-            return Result.fail(ErrorMsg.COOKIE_ERROR);
-        }
         int p = 1;
         int n = 8;
         if (null != page) {
@@ -83,9 +80,6 @@ public class AdminController {
     @PostMapping("add")
     public Result addAdmin(HttpSession session,
                            @RequestBody NxxAdmin adminModel) {
-        if (session.getAttribute("admin") == null) {
-            return Result.fail(ErrorMsg.COOKIE_ERROR);
-        }
         if (adminService.register(adminModel) != null) {
             return Result.success();
         }
@@ -98,9 +92,6 @@ public class AdminController {
                            @RequestParam("status") @NotNull @NotEmpty Integer status,
                            @RequestParam(value = "page", required = false) Integer page,
                            @RequestParam(value = "nums", required = false) Integer nums) {
-        if (session.getAttribute("admin") == null) {
-            return Result.fail(ErrorMsg.COOKIE_ERROR);
-        }
         int p = 1;
         int n = 8;
         if (null != page) {
@@ -115,12 +106,9 @@ public class AdminController {
     @ApiOperation("修改商品状态")
     @GetMapping("updateIdleStatus")
     public Result updateIdleStatus(HttpSession session,
-                                   @RequestParam("id") @NotNull @NotEmpty Long id,
-                                   @RequestParam("status") @NotNull @NotEmpty Integer status
+                                   @RequestParam("id") Long id,
+                                   @RequestParam("status") Integer status
     ) {
-        if (session.getAttribute("admin") == null) {
-            return Result.fail(ErrorMsg.COOKIE_ERROR);
-        }
         NxxIdleItem idleItemModel = new NxxIdleItem();
         idleItemModel.setId(id);
         idleItemModel.setIdleStatus(status.byteValue());
@@ -135,9 +123,6 @@ public class AdminController {
     public Result orderList(HttpSession session,
                             @RequestParam(value = "page", required = false) Integer page,
                             @RequestParam(value = "nums", required = false) Integer nums) {
-        if (session.getAttribute("admin") == null) {
-            return Result.fail(ErrorMsg.COOKIE_ERROR);
-        }
         int p = 1;
         int n = 8;
         if (null != page) {
@@ -153,9 +138,6 @@ public class AdminController {
     @GetMapping("deleteOrder")
     public Result deleteOrder(HttpSession session,
                               @RequestParam("id") @NotNull @NotEmpty Long id) {
-        if (session.getAttribute("admin") == null) {
-            return Result.fail(ErrorMsg.COOKIE_ERROR);
-        }
         if (orderService.deleteOrder(id)) {
             return Result.success();
         }
@@ -167,10 +149,7 @@ public class AdminController {
     public Result userList(HttpSession session,
                            @RequestParam(value = "page", required = false) Integer page,
                            @RequestParam(value = "nums", required = false) Integer nums,
-                           @RequestParam("status") @NotNull @NotEmpty Integer status) {
-        if (session.getAttribute("admin") == null) {
-            return Result.fail(ErrorMsg.COOKIE_ERROR);
-        }
+                           @RequestParam("status") Integer status) {
         int p = 1;
         int n = 8;
         if (null != page) {
@@ -187,9 +166,6 @@ public class AdminController {
     public Result updateUserStatus(HttpSession session,
                                    @RequestParam("id") @NotNull @NotEmpty Long id,
                                    @RequestParam("status") @NotNull @NotEmpty Integer status) {
-        if (session.getAttribute("admin") == null) {
-            return Result.fail(ErrorMsg.COOKIE_ERROR);
-        }
         NxxUser userModel = new NxxUser();
         userModel.setId(id);
         userModel.setUserStatus(status.byteValue());

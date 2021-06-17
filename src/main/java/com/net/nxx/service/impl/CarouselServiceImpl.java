@@ -20,6 +20,12 @@ public class CarouselServiceImpl implements CarouselService {
     @Resource
     private NxxCarouselDao carouselDao;
 
+    /**
+     * 分页查询轮播图
+     * @param page
+     * @param limit
+     * @return
+     */
     @Override
     public Page<NxxCarousel> getCarouselPage(int page, int limit){
         List<NxxCarousel> list = carouselDao.getList((page - 1) * limit, limit);
@@ -27,6 +33,11 @@ public class CarouselServiceImpl implements CarouselService {
         return new Page<>(list, total);
     }
 
+    /**
+     * 增加轮播图
+     * @param carousel
+     * @return
+     */
     @Override
     public NxxCarousel add(NxxCarousel carousel) {
         NxxCarousel Carousel = new NxxCarousel();
@@ -35,16 +46,31 @@ public class CarouselServiceImpl implements CarouselService {
         return Carousel;
     }
 
+    /**
+     * 更新轮播图
+     * @param carouselModel
+     * @return
+     */
     @Override
     public boolean updateCarouselInfo(NxxCarousel carouselModel) {
         return carouselDao.updateByPrimaryKeySelective(carouselModel) == 1;
     }
 
+    /**
+     * 查看轮播图
+     * @param id
+     * @return
+     */
     @Override
     public NxxCarousel getCarouselById(Integer id) {
         return carouselDao.selectByPrimaryKey(id);
     }
 
+    /**
+     * 删除轮播图
+     * @param id
+     * @return
+     */
     @Override
     public boolean deleteCarousel(Integer id) {
         return carouselDao.deleteByPrimaryKey(id) == 1;

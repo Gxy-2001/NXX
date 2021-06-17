@@ -28,15 +28,12 @@ public class IdleItemController {
 
     @ApiOperation("发布闲置")
     @PostMapping("add")
-    public Result addIdleItem(@CookieValue("UserId")
-                                @NotNull(message = "登录异常 请重新登录")
-                                @NotEmpty(message = "登录异常 请重新登录") String UserId,
+    public Result addIdleItem(@CookieValue("UserId") String UserId,
                               @RequestBody NxxIdleItem nxxIdleItem) {
         nxxIdleItem.setUserId(Long.valueOf(UserId));
         nxxIdleItem.setIdleStatus((byte) 1);
         nxxIdleItem.setReleaseTime(new Date());
         System.out.println("IDLE ADD here!!" + nxxIdleItem);
-        String l = nxxIdleItem.getPictureList();
 
 //      nxxIdleItem.setIdlePlace("src/main/resources/static" + nxxIdleItem.getIdlePlace().substring(
 //                nxxIdleItem.getIdlePlace().length()-17));
@@ -57,20 +54,16 @@ public class IdleItemController {
 
     @ApiOperation("查询用户发布的所有闲置")
     @GetMapping("all")
-    public Result getAllIdleItem(@CookieValue("UserId")
-                                   @NotNull(message = "登录异常 请重新登录")
-                                   @NotEmpty(message = "登录异常 请重新登录") String UserId) {
+    public Result getAllIdleItem(@CookieValue("UserId") String UserId) {
         return Result.success(idleItemService.getAllIdelItem(Long.valueOf(UserId)));
     }
 
-    @ApiOperation("搜索，分页，同时查出闲置发布者的信息")
+    @ApiOperation("搜索，分页")
     @GetMapping("find")
     public Result findIdleItem(@RequestParam(value = "findValue", required = false) String findValue,
                                @RequestParam(value = "page", required = false) Integer page,
                                @RequestParam(value = "nums", required = false) Integer nums) {
-        if (null == findValue) {
-            findValue = "";
-        }
+
         int p = 1;
         int n = 8;
         if (null != page) {
@@ -82,7 +75,7 @@ public class IdleItemController {
         return Result.success(idleItemService.findIdleItem(findValue, p, n));
     }
 
-    @ApiOperation("分类查询，分页，同时查出闲置发布者的信息，代码结构与上面的类似，可封装优化，或改为join查询")
+    @ApiOperation("分类查询，分页")
     @GetMapping("lable")
     public Result findIdleItemByLable(@RequestParam(value = "idleLabel", required = true) Integer idleLabel,
                                       @RequestParam(value = "page", required = false) Integer page,
@@ -101,8 +94,8 @@ public class IdleItemController {
     @ApiOperation("更新闲置信息")
     @PostMapping("update")
     public Result updateIdleItem(@CookieValue("UserId")
-                                   @NotNull(message = "登录异常 请重新登录")
-                                   @NotEmpty(message = "登录异常 请重新登录") String UserId,
+                                 @NotNull(message = "登录异常 请重新登录")
+                                 @NotEmpty(message = "登录异常 请重新登录") String UserId,
                                  @RequestBody NxxIdleItem nxxIdleItem) {
         nxxIdleItem.setUserId(Long.valueOf(UserId));
         if (idleItemService.updateIdleItem(nxxIdleItem)) {

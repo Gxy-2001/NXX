@@ -31,13 +31,6 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private NxxIdleItemDao idleItemDao;
 
-    private static HashMap<Integer, ReentrantLock> lockMap = new HashMap<>();
-
-    static {
-        for (int i = 0; i < 100; i++) {
-            lockMap.put(i, new ReentrantLock(true));
-        }
-    }
 
     @Override
     public boolean addOrder(NxxOrder orderModel) {
@@ -50,21 +43,10 @@ public class OrderServiceImpl implements OrderService {
         idleItem.setId(orderModel.getIdleId());
         idleItem.setUserId(idleItemModel.getUserId());
         idleItem.setIdleStatus((byte) 2);
-
-        int key = (int) (orderModel.getIdleId() % 100);
-        ReentrantLock lock = lockMap.get(key);
-        boolean flag;
-        try {
-            lock.lock();
-            flag = addOrderHelp(idleItem, orderModel);
-        } finally {
-            lock.unlock();
-        }
-        return flag;
+        return addOrderHelp(idleItem, orderModel);
     }
 
 
-    @Transactional(rollbackFor = Exception.class)
     public boolean addOrderHelp(NxxIdleItem idleItem, NxxOrder orderModel) {
         NxxIdleItem idleItemModel = idleItemDao.selectByPrimaryKey(orderModel.getIdleId());
         if (idleItemModel.getIdleStatus() != 1) {
@@ -82,7 +64,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * 获取订单信息，同时获取对应的闲置信息
+     * 获取订单信息
      *
      * @param id
      * @return
@@ -95,21 +77,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * 更新订单状态，无验证，后期修改为定制的更新sql
-     * 后期改为在支付时下架闲置
+     * 更新订单状态
      *
      * @param orderModel
      * @return
      */
-    @Transactional(rollbackFor = Exception.class)
     public boolean updateOrder(NxxOrder orderModel) {
-        //不可修改的信息
         orderModel.setOrderNumber(null);
         orderModel.setUserId(null);
         orderModel.setIdleId(null);
         orderModel.setCreateTime(null);
         if (orderModel.getOrderStatus() == 4) {
-            //取消订单,需要优化，减少数据库查询次数
             NxxOrder o = orderDao.selectByPrimaryKey(orderModel.getId());
             if (o.getOrderStatus() != 0) {
                 return false;
@@ -141,9 +119,6 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * 获取我的所有订单
-     * 同时查询出对应的闲置信息，
-     * 未做分页
-     * userId建索引
      *
      * @param userId
      * @return
@@ -175,7 +150,6 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
-    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<NxxOrder> getMySoldIdle(Long userId) {
         List<NxxIdleItem> list = idleItemDao.getAllIdleItem(userId);
         List<NxxOrder> orderList = null;
@@ -196,6 +170,11 @@ public class OrderServiceImpl implements OrderService {
         return orderList;
     }
 
+    /**
+     * @param page
+     * @param nums
+     * @return
+     */
     @Override
     public Page<NxxOrder> getAllOrder(int page, int nums) {
         List<NxxOrder> list = orderDao.getAllOrder((page - 1) * nums, nums);
@@ -217,6 +196,10 @@ public class OrderServiceImpl implements OrderService {
         return new Page<>(list, count);
     }
 
+    /**
+     * @param id
+     * @return
+     */
     @Override
     public boolean deleteOrder(long id) {
         return orderDao.deleteByPrimaryKey(id) == 1;

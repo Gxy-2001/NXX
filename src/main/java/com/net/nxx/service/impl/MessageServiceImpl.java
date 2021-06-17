@@ -68,8 +68,6 @@ public class MessageServiceImpl implements MessageService {
 
     /**
      * 获取一个用户收到的所有留言
-     * 同时查询出用户的信息和闲置的信息
-     * userId建索引
      *
      * @param userId
      * @return
@@ -113,8 +111,6 @@ public class MessageServiceImpl implements MessageService {
 
     /**
      * 查询一个闲置下的所有留言
-     * 同时查出发送者和接收者的信息
-     * idleId建索引
      *
      * @param idleId
      * @return
@@ -135,9 +131,6 @@ public class MessageServiceImpl implements MessageService {
             for (NxxMessage i : list) {
                 i.setFrom(map.get(i.getUserId()));
             }
-
-
-
             Map<Long, NxxMessage> mesMap = new HashMap<>();
             for (NxxMessage i : list) {
                 mesMap.put(i.getId(), i);

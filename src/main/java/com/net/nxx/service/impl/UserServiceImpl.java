@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 修改用户公开信息，未验证用户身份
+     * 修改用户公开信息
      *
      * @param userModel
      * @return

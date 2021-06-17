@@ -22,8 +22,7 @@ public class AdressServiceImpl implements AdressService {
     private NxxAddressDao addressDao;
 
     /**
-     * 查询一个用户的所有地址信息
-     * 数据库对user_id建索引，加速查询
+     * 查询一个用户的地址信息
      *
      * @param userId
      * @return
@@ -35,7 +34,6 @@ public class AdressServiceImpl implements AdressService {
 
     /**
      * 通过地址id查询地址的信息
-     * 同时验证用户身份
      *
      * @param id
      * @param userId
@@ -44,29 +42,23 @@ public class AdressServiceImpl implements AdressService {
     @Override
     public NxxAddress getAddressById(Long id, Long userId) {
         NxxAddress nxxAddress = addressDao.selectByPrimaryKey(id);
-        if (userId.equals(nxxAddress.getUserId())) {
-            return nxxAddress;
-        }
-        return null;
+        return nxxAddress;
     }
 
     /**
-     * 新增地址，默认地址的处理逻辑待优化
+     * 新增地址
      *
      * @param nxxAddress
      * @return
      */
-    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean addAddress(NxxAddress nxxAddress) {
         if (nxxAddress.getDefaultFlag()) {
             NxxAddress a = new NxxAddress();
             a.setDefaultFlag(false);
             a.setUserId(nxxAddress.getUserId());
-            //将一个用户的其他所有地址改为非默认地址，需要优化，sql增加判断条件default_flag=1，减少更新记录的数目
             addressDao.updateByUserIdSelective(a);
         } else {
-            //判断是否有默认地址，若无，则将当前地址设为默认地址
             List<NxxAddress> list = addressDao.getDefaultAddress(nxxAddress.getUserId());
             if (null == list || 0 == list.size()) {
                 nxxAddress.setDefaultFlag(true);
@@ -76,22 +68,19 @@ public class AdressServiceImpl implements AdressService {
     }
 
     /**
-     * 更新地址信息，同时要验证用户身份（未验证）
+     * 更新地址
      *
      * @param nxxAddress
      * @return
      */
-    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean updateAddress(NxxAddress nxxAddress) {
         if (nxxAddress.getDefaultFlag()) {
-            //同新增地址时的逻辑
             NxxAddress a = new NxxAddress();
             a.setDefaultFlag(false);
             a.setUserId(nxxAddress.getUserId());
             addressDao.updateByUserIdSelective(a);
         } else {
-            //若取消默认地址，则将第一个地址设置为默认地址
             List<NxxAddress> list = addressDao.getAddressByUser(nxxAddress.getUserId());
             for (NxxAddress a : list) {
                 if (a.getDefaultFlag() && a.getId().equals(nxxAddress.getId())) {
@@ -107,7 +96,7 @@ public class AdressServiceImpl implements AdressService {
     }
 
     /**
-     * 删除地址，同时要验证用户身份
+     * 删除地址
      *
      * @param nxxAddress
      * @return
