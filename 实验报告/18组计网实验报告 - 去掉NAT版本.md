@@ -69,15 +69,13 @@
   - VLAN 路由连接
   - Trunk 技术
   - ACL 防火墙设置
-  - NAT 技术
   - PPP
 ### 实验目标
   1. 掌握在路由器上启动 RIP 路由进程
   2. 掌握查看和调试 RIP 路由协议相关信息
   3. 深入了解交换机 VLAN 的配置
   4. 熟悉不同 VLAN 之间路由的配置
-  5. 熟悉 Trunk 的配置
-  6. 掌握静态 NAT 的配置和基本调试
+    5. 熟悉 Trunk 的配置
   7. 掌握 ACL 的配置
   8. 掌握 PPP 的配置
 ### 实验内容
@@ -86,8 +84,6 @@
 2. 配置 VLAN
 
 3. 配置 Trunk
-
-4. 配置 NAT
 
 5. 配置 ACL
 
@@ -362,47 +358,10 @@ Switch2#show vlan brief
 
 <h6 style="line-height:1.0" align = "center">图6：Switch2的vlan配置</h1>
 
-#### Step 5 NAT
-
-###### Router1
-
-```bash
-Router1(config)#int g0/0/0 
-Router1(config-if)#ip nat inside
-Router1(config-if)#exit
-Router1(config)#int s0/1/0 
-Router1(config-if)#ip nat outside
-Router1(config-if)#e
-Router1(config)#ip nat inside source static 192.168.10.2 202.202.202.4 
-Router1(config)#ip nat inside source static 192.168.10.3 202.202.202.5  
-```
-
-###### 验证NAT
-
-```bash
-Router1#show ip nat translations
-```
-
-==重新截图==
-
-<h6 style="line-height:1.0" align = "center">图7：Router1的NAT转换表</h1>
 
 
 
-从PC1 ping 202.202.202.1
-
-
-
-==重新截图==
-
-<h6 style="line-height:1.0" align = "center">图8：从PC1 ping 202.202.202.1</h1>
-
-
-
-
-
-
-#### Step 6 配置ACL
+#### Step 5 配置ACL
 
 ###### Router4
 
@@ -422,7 +381,8 @@ Router4#show access-list
 
 ==截图==
 
-<h6 style="line-height:1.0" align = "center">图9：Router4的ACL配置</h1>
+<h6 style="line-height:1.0" align = "center">图7：Router4的ACL配置</h1>
+
 
 
 
@@ -431,13 +391,12 @@ Router4#show access-list
 
 ==重新截图==
 
-<h6 style="line-height:1.0" align = "center">图10：Router3无法ping通Router4</h1>
+<h6 style="line-height:1.0" align = "center">图8：Router3无法ping通Router4</h1>
 
 
 
 
-
-#### Step 7 配置PPP
+#### Step 6 配置PPP
 
 ###### Router 3 (server)
 
@@ -468,7 +427,8 @@ Router2#ping 203.203.203.2
 
 ==重新截图==
 
-<h6 style="line-height:1.0" align = "center">图11：未设置账号密码时，Router2无法ping通203.203.203.2</h1>
+<h6 style="line-height:1.0" align = "center">图9：未设置账号密码时，Router2无法ping通203.203.203.2</h1>
+
 
 
 
@@ -485,7 +445,8 @@ Router2#ping 203.203.203.2
 
 ==重新截图==
 
-<h6 style="line-height:1.0" align = "center">图12：设置错误账号密码时，Router2无法ping通203.203.203.2</h1>
+<h6 style="line-height:1.0" align = "center">图10：设置错误账号密码时，Router2无法ping通203.203.203.2</h1>
+
 
 
 
@@ -502,7 +463,8 @@ Router2#ping 203.203.203.2
 
 ==重新截图==
 
-<h6 style="line-height:1.0" align = "center">图13：设置正确账号密码时，Router2可以ping通203.203.203.2</h1>
+<h6 style="line-height:1.0" align = "center">图11：设置正确账号密码时，Router2可以ping通203.203.203.2</h1>
+
 
 
 
@@ -513,8 +475,6 @@ Router2#ping 203.203.203.2
 通过RIP联通网段202.202.202.0/24，203.203.203.0/24，204.204.204.0/24
 
 通过VLAN和Trunk技术，使192.168.10.0网段和192.168.20.0网段通信
-
-通过NAT技术，将192.168.10.0网段和192.168.20.0网段静态映射到202.202.202.0网段上地址与其他网段实现通信
 
 通过在Router4设置ACL,实现阻止204.204.204.1到204.204.204.2的转发
 
