@@ -3,6 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+实验报告/南小咸.mp4
 
 ### STS ###
 .apt_generated
