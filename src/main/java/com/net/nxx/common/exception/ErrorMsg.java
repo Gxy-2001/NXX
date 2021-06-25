@@ -10,7 +10,7 @@ package com.net.nxx.common.exception;
 public enum ErrorMsg {
 
     DATA_NOT_EXIST("未查询到记录！"),
-    ACCOUNT_Ban("账号已被封禁"),
+    ACCOUNT_Ban("账号已封禁"),
     PASSWORD_RESET_ERROR("修改密码失败"),
     PARAM_ERROR("参数错误"),
     SYSTEM_ERROR("系统错误"),
