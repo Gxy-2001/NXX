@@ -54,6 +54,7 @@
             <scope>test</scope>
         </dependency>
         <!--德鲁伊连接池-->
+        <!--很多东西我们学到了就加进去，也没有明确用处/满足什么需求，这项目也是为了学习-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
