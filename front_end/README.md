@@ -1,4 +1,8 @@
-完整项目介绍见https://github.com/Gxy-2001/NXX/blob/master/essay.md
+完整项目介绍见[NXX/essay.md at master · Gxy-2001/NXX (github.com)](https://github.com/Gxy-2001/NXX/blob/master/doc/essay.md)
+
+前端GitHub地址：[Gxy-2001/Nxx_Web: Nxx的前端 (github.com)](https://github.com/Gxy-2001/Nxx_Web)
+
+
 
 ### 1.前端启动：
 
